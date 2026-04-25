@@ -1,0 +1,32 @@
++++ header
+@title: Towards minimizing data-acquisition for a pixel-based ultrasound computed tomography echo imaging method
+@brief: A manuscript on USCT research, to be submitted to AST, part of the requirement to fulfill a PhD degree.
+@date:
+- created on 2024-05-06
+- updated on 2025-02-15
++++
+
+# Result
+
+## Phantom data reconstruction under different SNR 
+<!--
+@brief:
+- validation of the optimal configuration by simulation benchmarking, pixel to pixel error level (2023-08-11-a stack content)
+- varying SNR vs selected configurations (Prof. Sakuma's suggestion 2023-12-10-a content)
+-->
+#result/phantom-reconstruction
+\label{sec:phantom-reconstruction-result}
+
+We present reconstructions of a scoring phantom using 16-element systems under varying SNR conditions, as illustrated in [@fig:reconst-snr].
+The phantom consists of scatterers forming a unique pattern, each with an echogenicity of 0.2 against a water background set to 0.
+Each row corresponds to a different system: the first employs a uniform configuration, subsequent systems feature progressively less uniform distributions, and the final system adopts the most concentrated configuration.
+The element arrangement for each system is displayed alongside its reconstructions, with the corresponding condition number indicated.
+
+The first column of the images are reconstructed under 40 dB SNR, which is typical for practical USCT imaging.
+In the following columns, we examine reconstructions under worse SNR.
+We compute the root mean square error (RMSE) of the reconstruction compared to the ground truth.
+
+At 40 dB SNR, even systems with relatively large condition numbers reveal the prominent visual features of the phantom (the Tai Chi symbol and the eight trigrams), although the relatively large RMSEs indicate that the reconstructed echogenicity maps deviate more from the ground truth compared to those with smaller condition numbers.
+
+At lower SNR, the importance of using a uniform configuration, which has the smallest condition number, becomes more evident.
+In the extreme case of 10 dB SNR, the concentrated configuration, whose aperture only covers a small corner, completely fails to reveal the phantom, leaving most of the ROI unpainted and giving a high RMSE. Due to limited space, results of other scoring phantoms are not displayed, but they share similar tendency exhibited in [@fig:reconst-snr].

@@ -1,0 +1,47 @@
++++ header
+@title: Towards minimizing data-acquisition for a pixel-based ultrasound computed tomography echo imaging method
+@brief: A manuscript on USCT research, to be submitted to AST, part of the requirement to fulfill a PhD degree.
+@date:
+- created on 2024-01-13
+- updated on 2024-02-17
++++
+
+# Reference
+<!--
+@note:
+Currently the reference is manually entered as bibitem entries.
+In the future, one will only need to include the `id` of each entry managed by a custom (plain text) database.
+-->
+#reference
+
+<!-- ///////////////// latex //////////////// -->
+\bibitem{JP-Caner-data} Cancer Information Service, National Cancer Center, Japan (National Cancer Registry, Ministry of Health, Labour and Welfare), ``Cancer Statistics,'' \url{https://ganjoho.jp/reg_stat/statistics/dl/index.html} (accessed on 2024-02-29).
+
+\bibitem{Bray-Global-Cancer-2018} F. Bray, J. Ferlay, I. Soerjomataram, R. L. Siegel, L. A. Torre and A. Jemal, ``Global Cancer Statistics 2018: GLOBOCAN Estimates of Incidence and Mortality Worldwide for 36 Cancers in 185 Countries,'' {\it CA: a cancer journal for clinicians}, {\bf 68}(6), 394--424 (2018).
+
+\bibitem{Sankaranarayanan-Cancer-Survival-2010} R. Sankaranarayanan, R. Swaminathan, et al. ``Cancer survival in Africa, Asia, and Central America: a population-based study,'' {\it The Lancet Oncology}, {\bf 11}(2), 165--173 (2010).
+
+\bibitem{Duric-SoftVue-2013} N. Duric, P. Littrup, O. Roy, S. Schmidt, C. Li, L. Bey-Knight, and X. Chen, ``Breast Imaging with Ultrasound Tomography: Initial results with SoftVue,'' {\it 2013 IEEE International Ultrasonics Symposium}, 382--385 (2013).
+
+\bibitem{Jensen-Synthetic-Aperture-2006} J. A. Jensen, S. I. Nikolov, K. L. Gammelmark and M. H. Pedersen, ``Synthetic aperture ultrasound imaging,'' {\it Ultrasonics}, {\bf 44}, e5--e15 (2016).
+
+\bibitem{USE2017} T. Tang, T. Azuma, N. Tomii, H. Nakamura and I. Sakuma, ``Perfect recovery USCT method for estimation of scatter distribution,'' {\it Proceedings of Symposium on Ultrasonic Electronics}, {\bf 38}, 2E1-4 (2017).
+
+\bibitem{IUS2019} T. Tang, T. Azuma and I. Sakuma, ``A High-Resolution USCT Echo Imaging Method with Reduced Data-Acquisition,'' {\it 2019 IEEE International Ultrasonics Symposium}, 2351--2354 (2019).
+
+\bibitem{Brunton-Data-Driven-Study-2022} S. Brunton and J. N. Kutz, {\it Data-driven science and engineering: Machine learning, dynamical systems, and control} (Cambridge University Press, Cambridge, 2022), Chap. 1, pp. 16--23.
+
+\bibitem{Verweij-Ultrasound-Simulation-2014} M. D. Verweij, B. E. Treeby, K. W. A. van Dogen and L. Demi, ``Simulation of Ultrasound Fields,'' in {\it Comprehensive Biomedical Physics}, A. Brahme, Eds. (Elsevier, Amsterdam, 2014), {\bf 2}, pp. 465--499.
+
+\bibitem{Gemmeke-KIT-3D-USCT-2017} H. Gemmeke, T. Hopp, M. Zapf, C. Kaiser and N. V. Ruiter, ``3D ultrasound computer tomography: Hardware setup, reconstruction methods and first clinical results,'' {\it Nuclear Instruments and Methods in Physics Research Section A: Accelerators, Spectrometers, Detectors and Associated Equipment}, {\bf 873}, 59--65 (2017).
+
+\bibitem{QT-USCT-System-2011} P. Pellegretti, M. Vicari, M. Zani, M. Weigel, D. Borup, J. Wiskin, U. Saueressig, E. Kotter and Mathias Langer, ``A clinical experience of a prototype automated breast ultrasound system combining transmission and reflection 3D imaging,'' {\it 2011 IEEE International Ultrasonics Symposium}, 1407--1410 (2011).
+
+\bibitem{Treeby-kWave-2010} B. E. Treeby and B. T. Cox, ``k-Wave: MATLAB toolbox for the simulation and reconstruction of photoacoustic wave fields,'' {\it Journal of biomedical optics}, {\bf 15}(2), 021314 (2010).
+
+\bibitem{Swiss-ITIS-database} C. Baumgartner, P. A. Hasgall, F. Di Gennaro, E. Neufeld, B. Lloyd, M. C. Gosselin, D. Payne, A. Klingenböck, and N. Kuster, {\it Tissue Properties Database} (Version 4.2, 2024), DOI: 10.13099/VIP21000-04-2.
+
+\bibitem{Nebeker-2012} J. Nebeker and T. R. Nelson, ``Imaging of sound speed using reflection ultrasound tomography,'' {\it Journal of Ultrasound in Medicine}, {\bf 31}(9), 1389--1404 (2012).
+
+\bibitem{Qu-2016} X. Qu, T. Azuma, T. Yogi, S. Azuma, H. Takeuchi, S. Tamano and S. Takagi, ``Synthetic aperture ultrasound imaging with a ring transducer array: preliminary ex vivo results,'' {\it Journal of Medical ultrasonics}, {\bf 43}, 461--471 (2016).
+<!-- /////////////////////////////////////// -->

@@ -1,0 +1,53 @@
++++ header
+@title: Towards minimizing data-acquisition for a pixel-based ultrasound computed tomography echo imaging method
+@brief: A manuscript on USCT research, to be submitted to AST, part of the requirement to fulfill a PhD degree.
+@date:
+- created on 2024-01-20
+- updated on 2024-07-27
++++
+
+# Discussion
+
+## Advantages and features of the pixel-based imaging method
+<!--
+@brief: Discussion on the investigation result
+@details:
+- advantages (features) compared w/ synthetic aperture
+- the intrinsic reason, pitch the difference between the proposed method and the conventional method—synthetic aperture
+	- the idea (dictionary for each pixel vs . back-projection)
+	- the mathematics
+	- the physical meaning of echogenicity (SA actually gives probability of echogenicity distribution)
+- possible improvement and the potential application
+	- incorporate pass through wave
+	- can incorporate other TX method, such as plane wave TX
+	- can be applied to other systems (e.g. QT Ultrasound's method)
+-->
+#discussion/pixel-method
+\label{sec:advantage-and-feature}
+
+The pixel-based imaging method offers spatial resolution comparable to the synthetic aperture method, with much higher contrast ratio, while requiring significantly fewer elements.
+For instance, a 16-element system employing the pixel-based method outperforms a 128-element system using the SA method, which implies an 8-fold reduction in hardware complexity.
+Moreover, this is a 64-fold reduction in the raw dataset, significantly alleviating data transfer and storage bottlenecks.
+
+The advantages of the pixel-based imaging method over the synthetic aperture method can be understood by inspecting the mathematical form of the reconstruction process.
+From an algebraic perspective, the reconstruction process of the synthetic aperture can also be expressed in a matrix form by [@eq:synthetic-aperture-matrix]:
+<!-- latex -->
+\begin{subequations}
+\label{eq:synthetic-aperture-matrix}
+\begin{equation}
+\label{eq:selection-matrix}
+\mathbf{a} = \vert \mathbf{S} \cdot \mathbf{\tilde{y}} \vert
+\end{equation}
+\begin{equation}
+\label{eq:pre-processed-y}
+\mathbf{\tilde{y}} = \mathcal{H} \big( \mathrm{TGC}(\mathbf{y}) \big)
+\end{equation}
+\end{subequations}
+<!----------->
+where $\mathbf{a}$ is 1-D column vector of the uncompressed pixel values;
+$\mathbf{\tilde{y}}$ is the preprocessed RF data from all TX/RX pairs concatenated into a 1-D column vector;
+$\mathbf{S}$ is the ``selection'' matrix, whose entries are either 0 or 1, that performs the pickup-and-sum operation as detailed in [@eq:synthetic-aperture].
+Inserting $\mathbf{y} = \mathbf{G} \mathbf{x}$ into [@eq:synthetic-aperture-matrix] will not recreate $\mathbf{x}$.
+In contrast, the pixel-based imaging method simulates the measurement matrix (which includes not only travel time, but also attenuation, energy spreading, and waveform), allowing solving the problem of [@eq:01] by pseudo-inverse of $\mathbf{G}$, thus recreating $\mathbf{x}$.
+
+Additionally, the proposed method is as versatile as the synthetic aperture method, being equally applicable to non-ring-shaped systems and non-point-source acquisition schemes---such as those described in [@cite:Gemmeke-KIT-3D-USCT-2017] and [@cite:QT-USCT-System-2011]---by constructing the proper $\mathbf{G}$ matrices.

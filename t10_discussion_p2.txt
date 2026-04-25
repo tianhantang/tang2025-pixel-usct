@@ -1,0 +1,53 @@
++++ header
+@title: Towards minimizing data-acquisition for a pixel-based ultrasound computed tomography echo imaging method
+@brief: A manuscript on USCT research, to be submitted to AST, part of the requirement to fulfill a PhD degree.
+@date:
+- created on 2024-05-12
+- updated on 2025-02-15
++++
+
+# Discussion
+
+## Challenges and future directions for the pixel-based imaging method
+<!--
+@brief: limitations of the proposed method
+@details:
+- the method itself
+	- the assumptions, the forward model
+	- computation cost
+- the optimization strategy
+	- only optimize global ROI
+-->
+#discussion/limitation
+\label{sec:limitation}
+
+The pixel-based imaging method relies on creating a dictionary for each pixel using a linear acoustic model, which is built upon the assumptions stated in Section 2.1.
+However, these assumptions are not entirely valid in practical applications, and their effects are addressed here.
+
+First, while attenuation inhomogeneity primarily affects the amplitude of each pixel's ``code'' in the dictionary, it is effectively handled by the least-squares solution in [@eq:pixel-based-inverse].
+In contrast, sound speed inhomogeneity poses a significant challenge as it impacts the positions of the codes in the dictionary.
+The current method struggles in this regard, leading to abrupt deviations in the reconstructed echogenicity map when sound speed inhomogeneities are present.
+Synthetic aperture is also affected by sound speed inhomogeneities---as it assumes a constant speed during reconstruction---however, it is generally less sensitive to this issue.
+SA method typically suffers a loss of spatial resolution due to the ``out-of-focus'' effect, but still preserves the overall structure of the target.
+To mitigate sound speed inhomogeneity in the proposed method, one potential strategy is sound speed sweeping: precomputing multiple $\mathbf{G}$ matrices corresponding to a range of sound speeds, performing parallel reconstructions for each, and selecting the best result.
+Another promising approach leverages the intrinsic nature of USCT: using the pass-through wave to construct a sound speed map and generating a tailored $\mathbf{G}$ matrix based on it.
+
+Second, the assumption of isotropic scattering is generally valid for soft tissue imaging.
+While strong scatterer directivity may influence the optimal configuration for specific targets, the weak directivity typical in soft tissues is unlikely to cause significant issues.
+The least-squares method effectively compensates for variations in code amplitude caused by weak directivity.
+
+Third, the use of Born's approximation is a widely accepted practice in soft tissue imaging and should not introduce significant errors.
+
+Fourth, excluding the pass-through signals in the simulation is justified as these signals primarily overlap with the scattering signals along the line connecting the TX/RX elements.
+Theoretically, pass-through signals can be separated from real data in time domain and removed without substantial information loss.
+Moreover, in practice, acquisition schemes can be designed to strictly use only the reflection signals for reconstruction, as demonstrated in [@cite:Qu-2016].
+
+Fifth, the background acoustic artifacts, such as reflections from the transducer element surfaces, pose another challenge in real-world applications.
+These artifacts are not accounted for in the $\mathbf{G}$ matrix model and must be removed from raw RF data during preprocessing.
+For sparse objects (e.g., wire phantoms), subtraction of a water-only dataset can effectively eliminate these reflections.
+For denser targets, such as human breast, attenuation effects may naturally diminish their impact.
+
+Additionally, for real-scale breast imaging, as stated in Section 2.2, the large number of pixels and data samples will result in a tremendous $\mathbf{G}$ matrix, with size being several orders of magnitude larger than that used in the simulation studies.
+This makes the pixel-based method which solves the inverse problem far more computationally intensive than synthetic aperture reconstruction at the same scale.
+
+Moving forward, we aim to apply the pixel-based USCT echo imaging method to experiment data, focusing on addressing inhomogeneous sound speed issue in biological media, as well as dealing with acoustic artifacts from actual systems.

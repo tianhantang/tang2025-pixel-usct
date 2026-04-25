@@ -1,0 +1,72 @@
++++ header
+@title: Towards minimizing data-acquisition for a pixel-based ultrasound computed tomography echo imaging method
+@brief: A manuscript on USCT research, to be submitted to AST, part of the requirement to fulfill a PhD degree.
+@date:
+- created on 2024-05-06
+- updated on 2025-02-15
++++
+
+# Result
+
+## Comparison between pixel-based imaging method and synthetic aperture method
+<!--
+@brief:
+comparison w/ SA (2023-12-30-a content)
+-->
+#result/comparison-SA
+\label{sec:comparison-SA-result}
+
+<!-- latex -->
+\begin{figure}[tb]
+\begin{center}
+\includegraphics[width=6.5cm]{figure-10.eps}
+\caption{Comparing the spatial resolution: the reconstructions, and the quantitative evaluation.}
+\label{fig:compare-resolution}
+\end{center}
+\end{figure}
+<!----------->
+
+<!-- latex -->
+\begin{figure}[tb]
+\begin{center}
+\includegraphics[width=6.5cm]{figure-08.eps}
+\caption{Comparing the contrast ratio: the reconstructions, and the quantitative evaluation.}
+\label{fig:compare-contrast}
+\end{center}
+\end{figure}
+<!----------->
+
+Comparisons between the reconstructions from the pixel-based imaging method and the synthetic aperture method (SA) are shown in [@fig:compare-resolution] and [@fig:compare-contrast].
+The SNR of the RF data for reconstruction is 40 dB.
+
+[@fig:compare-resolution] compares the spatial resolution of SA and the pixel-based method using the same scoring phantom as in [@fig:reconst-snr].
+For SA, a full 128-element or uniformly configured 64-element system reveals all the phantom's features;
+However, reducing the number of elements to 32 or fewer results in a loss of visual sharpness and details.
+In contrast, the pixel-based imaging method shows no visually identifiable degradation when reducing the number of elements from 128 to 64, 32, and even 16, maintaining comparable resolution to that of SA using a full system;
+When reduced to 8 elements, there are perceptible speckles and a decline in brightness;
+However, reducing the number of elements to 4 results in a complete collapse of the image.
+
+The bottom right portion of the phantom, which contains several closely spaced point scatterers, is used for the quantitative evaluation.
+Two representative line profiles, denoted by the red dashed lines in each zoom-in figure---one from SA using a full system and the other from the pixel-based method using only a 16-element system---are plotted.
+Both results exhibit single-pixel level (0.5 mm) resolution, as the pixel value of each point scatterer outweighs the adjacent background by more than 3 dB.
+
+[@fig:compare-contrast] compares the contrast of SA and the pixel-based method using a female breast-mimicking phantom, which models skin, fat, mammary tissue, and a tumor.
+The echogenicity values for these tissues are set to $-0.11$, $-0.01$, $-0.06$, and $-0.03$, respectively, which are estimations based on reflection coefficients calculated from acoustic parameters in [@cite:Swiss-ITIS-database] and [@cite:Nebeker-2012], along with empirical observations: skin exhibits high echogenicity, fat is low, mammary tissue is moderate, and tumors can appear either brighter or darker in B-mode images.
+For SA, both a full 128-element system and a uniformly configured 64-element system clearly reveal all phantom structures.
+However, reducing the element count to 32 and below results in a loss of structural information and contrast.
+For the pixel-based imaging method, reducing the element count from 128 to 64 or 32 produces no visually significant degradation, with images maintaining much higher contrast than SA.
+At 16 elements, slight speckling appears in the mammary tissue, but the overall image remains clear and sharp. 
+At 8 elements, speckling becomes more pronounced, though structures remain recognizable.
+At 4 elements, the image collapses entirely, failing to reveal any internal structures.
+
+We evaluate the contrast quantitatively by calculating the contrast ratio (CR) between the tumor and the mammary tissue using [@eq:compute-contrast]:
+<!-- latext -->
+\begin{equation}
+\begin{aligned}
+\label{eq:compute-contrast}
+\mathrm{CR} = 20 * \log_{10} \frac{ \vert \mathrm{Mean}(X_1) - \mathrm{Mean}(X_2) \vert }{ \sqrt{ \mathrm{Std}(X_1)^2 + \mathrm{Std}(X_2)^2 } }
+\end{aligned}
+\end{equation}
+<!---->
+where, $X_1$ is the group of pixels inside the tumor region; $X_2$ is the group of pixels inside the mammary tissue region.
+The result shows that the pixel-based imaging method using only 8 or 16 elements is good enough that outperforms SA using a full or 64-element system.

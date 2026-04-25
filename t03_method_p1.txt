@@ -1,0 +1,106 @@
++++ header
+@title: Towards minimizing data-acquisition for a pixel-based ultrasound computed tomography echo imaging method
+@brief: A manuscript on USCT research, to be submitted to AST, part of the requirement to fulfill a PhD degree.
+@date:
+- created on 2024-01-13
+- updated on 2025-02-15
++++
+
+<!--
+@note:
+A general rule is that we should not copy-use the contents of those two conference material in the public domain:
+- USE 2017 is a 2-page material, it contains a general introduction on the formula `G x = y`.
+- IUS 2019 is a 4-page material, it elaborates the *Geometric View of USCT Echo Imaging*.
+Rather, we can add new contents to them.
+-->
+# Method
+
+## The pixel-based USCT echo imaging method
+<!--
+@brief:
+1. the root/trace of the pixel-based method
+2. the details about the method
+	- assumption
+	- forward process: construct G matrix
+	- inverse process: solving inverse problem
+	- example with picture
+
+@note:
+The two figures (one for the forward process and one for the inverse process) are important to help the reader understand the method in more detail beyond the two short papers:
+- forward process: scene of scattering upon scatterers inside ring, and the received data trace
+- inverse process:  measurement matrix generation, and the reconstructed image
+-->
+#method/pixel-method
+\label{sec:pixel-method}
+
+<!-- latex -->
+\begin{figure*}[tb]
+\begin{center}
+\includegraphics[width=12.5cm]{figure-02.eps}
+\caption{A pixel-based USCT echo imaging method. (a) the forward process; (b) the inverse process.}
+\label{fig:02}
+\end{center}
+\end{figure*}
+<!----------->
+
+The pixel-based USCT echo imaging method, proposed in our prior study [@cite:USE2017], and further elaborated upon in [@cite:IUS2019], diverges from the traditional synthetic aperture method (which relies on back-projection techniques) by exploring a unique ``pixel-dictionary'' approach for image reconstruction. It aims for high-quality echo image creation while reducing the ultrasound data acquisition.
+
+The proposed image reconstruction method involves simulating the scattering response of a single point scatterer placed at each pixel in the region of interest (ROI).
+The simulation is based on linear acoustics and several important assumptions:
+<!-- latex -->
+\begin{enumerate}
+\item The imaging target is modeled as point scatterers distributed on homogeneous background medium, that is, the sound speed and attenuation are assumed to be constant across the ROI.
+\item The point scatterer is assumed to be small compared to the wavelength of ultrasound such that the scattering process can be modeled as isotropic.
+\item Born's approximation is employed, which implies that second-order scattering is considered negligible.
+\item The pass-through signals are out of concern in this method and thus are not included in the simulation by assuming that they can be separated from the time domain since they always arrive at the RX elements faster than the scattering waves.
+\item The background acoustic artifacts due to reflections from the transducer elements surface are not included in the simulation.
+\end{enumerate}
+<!----------->
+
+For a given USCT system, characterized by a specific configuration of transducer elements and a pre-defined imaging sequence, this simulation is executed through two-level nested loops:
+<!-- latex -->
+\begin{itemize}
+\item The outer loop iterates over each pixel, placing a scatterer with unit echogenicity (which is capable of scattering 100% of the incident acoustic energy) at the center of it;
+\item For each such placement, the inner loop then simulates the radio frequency (RF) signal for each transmission-reception (TX/RX) pair.
+\end{itemize}
+By integrating these simulated signals, we construct a comprehensive ``dictionary'' for the ROI, encoding the predicted response of the system to scatterers located at any pixel within the imaging area.
+
+This dictionary is represented by a matrix $\mathbf{G}$, known as the Generated Measurement Matrix.
+It has as many columns as there are pixels in the ROI---we denote the number as $N_{p}$---and it can be expanded as $\mathbf{G} = [\mathbf{g}_1, \mathbf{g}_2, \ldots, \mathbf{g}_{N_p}]$, where the $i$-th column corresponds to the signal when the hypothetical unit echogenicity scatterer is located at the $i$-th pixel.
+Each column is the concatenated signal from all TX/RX pairs, therefore---denoting the number of time series per RX channel as $N_t$, the number of RX channels per TX event as $N_{RX}$, the number of TX events as $N_{TX}$---the length of the column is $N_{t} \times N_{RX} \times N_{TX}$.
+Consequently, we have $\mathbf{G} \in \mathbb{R}^{(N_{t} \times N_{RX} \times N_{TX}) \times N_{p}}$.
+
+Considering an object consisting of multiple scatterers, the linear acoustics principle dictates that the received signal is the linear superposition of signals from each individual scatterer, encapsulated by [@eq:01]:
+<!-- latex -->
+\begin{equation}
+\label{eq:01}
+\mathbf{G x = y}
+\end{equation}
+<!----------->
+where $\mathbf{x}$ represents a vector describing the scattering ability (derived from echogenicity) at each pixel within the ROI, and its physical meaning will be clarified in Section 2.3;
+$\mathbf{y}$ represents the received RF signal.
+
+Solving the inverse problem for $\mathbf{x}$ in [@eq:01], followed by appropriate post-processing on the result creates the echo image.
+This image effectively represents the echogenicity strength distribution of the ROI.
+
+[@fig:02] provides a visual guide to understand the pixel-based USCT echo imaging method. 
+<!-- UPPER PANEL -->
+[@fig:02] (a) depicts the forward process for data acquisition.
+<!-- left panel -->
+The upper left panel illustrates a USCT system with 16 uniformly configured transducer elements and five distinct point scatterers within the ROI, marked as $\alpha$, $\beta$, $\gamma$, $\delta$ and $\epsilon$.
+The transmission begins at the element located at 6 o'clock position, with all elements participating in the reception.
+<!-- right panel -->
+The upper right panel plots the received signals from the first TX event, with the horizontal axis indexing the RX channels, and the vertical axis indexing the RF data samples. 
+The signal strengths are conveyed in grayscale, while the colored markers highlight the traces associated with the five scatterers.
+<!-- LOWER PANEL -->
+[@fig:02] (b) shows the inverse process for image reconstruction.
+<!-- left panel -->
+The lower left panel delves into the components of [@eq:01], with a rearrangement showing the relationship $\mathbf{G}^{-1} \mathbf{y} = \mathbf{x}$, where in practice, $\mathbf{G}^{-1}$ is the pseudo-inverse of matrix $\mathbf{G}$.
+Each column of the $\mathbf{G}$ matrix is tied to the simulated RF signal for a specific pixel within the ROI.
+Columns corresponding to the pixels containing scatterers are color tagged accordingly.
+It is important to note that for each pixel, the simulated responses for every RX channels from a single TX event are stacked vertically;
+These responses from all TX events are then stacked further;
+Thus, the full set of RF signals acquired from all TX/RX pairs is compiled into a column vector.
+Consequently, the solution $\mathbf{x}$ is also a column vector, with the number of entries equal to the pixel count within the ROI.
+<!-- right panel -->
+The lower right panel displays the reconstructed echo image of the ROI, derived from post-processing and reshaping $\mathbf{x}$, which is detailed in Section 2.3.

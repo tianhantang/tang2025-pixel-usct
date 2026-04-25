@@ -1,0 +1,82 @@
++++ header
+@title: Towards minimizing data-acquisition for a pixel-based ultrasound computed tomography echo imaging method
+@brief: A manuscript on USCT research, to be submitted to AST, part of the requirement to fulfill a PhD degree.
+@date:
+- created on 2024-01-13
+- updated on 2025-02-14
++++
+
+# Method
+
+## Minimizing data-acquisition for USCT echo imaging
+<!-- 
+@brief:
+This section describes what it means to minimize the data acquisition, connecting the data minimizing to the linear equation Gx = y, i.e., minimizing data means reducing the length of y, which implies smaller G, which implies systems with less elements. And the optimal configuration corresponds to such a G that,
+1. has sufficient rank to make the the linear problem solvable.
+2. has good (small) condition number to make the measurement robust to noise.
+
+@note:
+One can mention actual number of system, including the actual system and simulation model (e.g. 128 elements) to give a clear figure for the reader.
+-->
+#method/optimization-strategy
+\label{sec:optimization-strategy}
+
+<!-- latex -->
+\begin{figure*}[tb]
+\begin{center}
+\includegraphics[width=12.5cm]{figure-03.eps}
+\caption{Optimizing USCT elements configuration, by number, uniformity and position.}
+\label{fig:03}
+\end{center}
+\end{figure*}
+<!----------->
+
+In light of [@eq:01], the concept of minimizing data acquisition for USCT echo imaging is straightforward. 
+The vector $\mathbf{x}$ symbolizes the one-dimensional unknown parameters relating to the echogenicity map.
+Given a specific ROI and the required spatial resolution, the number of pixels ($N_{p}$)---and thus the elements in $\mathbf{x}$---is predetermined.
+Minimizing data acquisition necessitates reducing the length of vector $\mathbf{y}$, which comprises the vertically stacked RF data from all TX/RX pairs.
+The length of $\mathbf{y}$ is the product of the number of samples per RX channel ($N_{t}$), the number of RX channels ($N_{RX}$), and the number of TX events ($N_{TX}$).
+For a practical system shown in [@fig:01], $N_{p}$ is on the order of $2^{18}$ ($512 \times 512$); $N_{TX}$ and $N_{RX}$ are both on the order of $2^{11}$; $N_{t}$ is on the order of $2^{13}$.
+
+Considering the physical scale of the ROI, along with the medium's sound speed, as well as the transmission wave's frequency, Nyquist sampling criterion sets a lower bound for the number of samples per RX channel.
+Consequently, optimization efforts are focused on reducing the number of RX channels and TX events.
+Diminishing the number of TX events effectively lessens the TX blocks in $\mathbf{y}$, and curtailing the number of RX channels decreases the segments within each TX block.
+While selectively employing only a portion of elements in an existing system for TX/RX may offer some versatility, it lacks economic efficiency.
+Our strategy is to diminish the number of elements across the entire system, inherently reducing both the number of RX channels and TX events.
+
+A decrease in the length of $\mathbf{y}$ also implies a reduction in the number of rows in matrix $\mathbf{G}$, following the linear system relationship.
+Thus, the pursuit of data minimization aims to design an optimal system characterized by a $\mathbf{G}$ matrix that has as few as possible rows while maintains:
+<!-- latex -->
+\begin{itemize}
+\item A full rank to ensure that [@eq:01] is solvable for $\mathbf{x}$;
+\item A small condition number to guarantee the measurement being robust against noise [@cite:Brunton-Data-Driven-Study-2022].
+\end{itemize}
+<!----------->
+
+The system design optimization involves two primary parameters:
+<!-- latex -->
+\begin{enumerate}
+\item Number of elements in the USCT system;
+\item Position of each element relative to the ROI.
+\end{enumerate}
+<!----------->
+
+To maintain a manageable searching space, we begin with a conceptual ``full'' system, consisting of densely packed elements uniformly arranged on a circle around the ROI, which resembles a practical system.
+We then evaluate a system with half the number of elements, with placement limited to the ``slots'' of the full system.
+These elements may be positioned adjacent to each other or spaced at regular intervals.
+Progressively, we consider systems with half the number of elements from the previous set, and so on.
+As such, each number of elements allows for different configurations distinguished by the uniformity of elements arrangement.
+
+For instance, the first row of [@fig:03] shows a full system with 128 elements, followed by systems with 64, 32, and 16 elements, etc.
+Together with the second row, it shows a 16-element system in different configurations, from the most uniform case where elements occupy every 8th slot, to the most concentrated case where elements are adjacent.
+Although circular symmetry suggests configurations with the same number of elements and uniformity should measure the ROI identically, the Cartesian pixel grid introduces asymmetry, causing numerical differences.
+This is considered in our simulations (as shown in the third row), albeit not as a primary factor.
+
+Our basic strategy to find an optimal configuration that minimizes data acquisition is as follows:
+<!-- latex -->
+\begin{enumerate}
+\item Identify the lowest viable number of elements by successively halving the count from the full system and calculating the rank of the resultant measurement matrices.
+\item For systems achieving full rank, determine the condition number of each corresponding measurement matrix.
+\item Based on the estimated signal-to-noise ratio (SNR) for ultrasound data acquisition (which can be obtained from statistics of experiment data from practical system), select the configuration with the fewest elements that maintain an acceptable error level.
+\end{enumerate}
+<!----------->

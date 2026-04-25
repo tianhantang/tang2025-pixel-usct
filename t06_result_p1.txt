@@ -1,0 +1,60 @@
++++ header
+@title: Towards minimizing data-acquisition for a pixel-based ultrasound computed tomography echo imaging method
+@brief: A manuscript on USCT research, to be submitted to AST, part of the requirement to fulfill a PhD degree.
+@date:
+- created on 2024-01-18
+- updated on 2025-02-15
++++
+
+# Result
+
+## Condition numbers of systems with different configurations
+<!--
+@brief:
+investigation on the measurement matrix (2023-05-12-a stack content)
+- validate the hypothesis that uniform distribution is the best for the ROI
+- the optimal system that has a satisfiable condition number (the turning point at the graph)
+-->
+#result/condition-number
+\label{sec:condition-number-result}
+
+<!-- latex -->
+\begin{figure}[tb]
+\begin{center}
+\includegraphics[width=6.5cm]{figure-05.eps}
+\caption{Condition numbers of different USCT systems.}
+\label{fig:cond-num}
+\end{center}
+\end{figure}
+<!----------->
+
+<!-- latex -->
+\begin{figure*}[tb]
+\begin{center}
+\includegraphics[width=12.5cm]{figure-06.eps}
+\caption{Image reconstruction using 16-element system with various configurations, under different SNR conditions.}
+\label{fig:reconst-snr}
+\end{center}
+\end{figure*}
+<!----------->
+
+We compute the condition numbers for systems with 128, 64, 32, 16, and 8 elements.
+Under each category, we examine configurations with different uniformities, from the most concentrated to the most uniform ones.
+Considering the square symmetry, we only examine apertures starting from the $-\pi/2$ to $-\pi/4$ direction and from $0$ to $\pi/4$ direction.
+
+Each row in [@fig:cond-num] summarizes the condition numbers of systems with a specific number of elements and uniformity.
+The horizontal axis represents the condition number, while the vertical axis shows the normalized distribution density, ranging from 0 to 1.
+This illustrates the distribution of condition numbers for systems with the same number of elements and uniformity but different relative positions of the aperture to the ROI.
+
+For example, the first row shows the distribution for 64-element systems with uniformity 2.
+In our simulation with 128 slots, this means elements occupy alternate slots, forming a full circle aperture.
+There are only 2 configurations in this category, as detailed in [@tb:system-confs].
+The zoom-in plot shows that the mode of this category---calculated by fitting the distribution into a continuous probability density function---is $7.8$.
+Additionally, the plot of the ``full'' 128-element system is overlaid using red dashed line, showing a condition number of $7.4$.
+The second row shows the distribution for 64-element systems with uniformity 1, each spanning a half circle.
+Considering different starting points for the relative position of the aperture, there are 34 different configurations in this category, which is also true for all other categories that do not form a full circle aperture.
+
+We observe that for each category, systems with uniform configurations have the smallest mode in terms of condition number, implying that for imaging the entire ROI inside the ring-shaped transducer of USCT, uniform configuration is generally the best choice.
+For all systems with uniform configuration, more elements result in a smaller condition number.
+However, halving the number of elements sequentially from 128 to 64, 32, and 16 results in only a relatively small increase in condition number.
+This suggests significant redundancy in the full system.

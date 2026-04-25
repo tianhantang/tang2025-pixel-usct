@@ -1,0 +1,43 @@
+# IDE
+.vscode/
+
+# macOS system files
+.DS_Store
+
+# folders
+artifacts/
+assets/
+communications/
+instructions/
+log/
+misc/
+notebooks/
+stack/
+
+# temporary files
+tmp/
+*.bak
+*.tmp
+*.swp
+
+# LaTeX utility files
+*.aux
+*.bbl
+*.blg
+*.lof
+*.log
+*.lot
+*.out
+*.toc
+*.synctex.gz
+*.dvi
+
+# auto-generated files
+tex/u2025_ast.tex
+
+# proprietary format docs
+*.pdf
+*.afdesign
+*.key
+*.pages
+*.nb

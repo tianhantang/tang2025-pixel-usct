@@ -1,0 +1,149 @@
+\documentclass[]{acoust}
+\usepackage{url}
+\usepackage{booktabs}
+%%% [letter] for Acoustical Letter
+%%% [shortnote] for Short Note
+%%% [techrep] for Technical Report
+%%% Otherwise, Paper
+%%% [prepr] for onecolumn layout = Old format for submission to AST
+\setlength\tabcolsep{4pt} % add more space between columns of table
+
+\def\header{Minimizing data-acquisition for USCT imaging} % A short running title of not more than 50 keystrokes
+
+% The first letter of the title and all proper nouns should be capitalized with the rest in lower case.
+% As a general rule, abbreviations should not be used in the Title.
+\title{Towards minimizing data-acquisition for a pixel-based ultrasound computed tomography echo imaging method}
+% \subtitle{Sub-title goes here}
+
+\author{Tianhan Tang$^{1,2}$\thanks{tianhantang.pd@gmail.com}, Ichiro Sakuma$^{1}$, Takashi Azuma$^{2}$, Shin-Ichiro Umemura$^{2}$,\\
+Atsushi Otsubo$^{2}$, Toshihide Iwahashi$^{2}$, Hirofumi Nakamura$^{2}$}
+
+\inst{$^{1}$Department of Bioengineering, Graduate School of Engineering, The University of Tokyo\\
+Room 722, Engineering 14th Bldg., 7-3-1 Hongo, Bunkyo-ku, Tokyo, 113-8656 Japan\\
+$^{2}$Lily MedTech Inc.\\
+Entrepreneur Lab, South Research Bldg., 7-3-1 Hongo, Bunkyo-ku, Tokyo, 113-8485 Japan
+}
+
+% \author{% List of author goes here.
+% Author1$^1$, Author2$^2$, and Author3$^1$\thanks{E-mail address(es) must be a footnote.}}
+% 
+% \inst{% List of affiliation(s) goes here. \\
+% $^{1}$ Multiple affiliation(s) must be numbered with superscript \\
+% $^{2}$ Affiliation(2)}
+
+%\recdate{}{}{} %% received date with yyyymmdd or yyyymd
+%\accdate{}{}{} %% received date with yyyymmdd or yyyymd
+%\jstdate{}{}{} %% J-STAGE Advance published date with yyyymmdd or yyyymd
+
+\abst{
+% >>> abstract
+@anchor:t01
+% <<<
+}
+
+\kword{Ultrasound computed tomography, Data reduction, System optimization, Inverse problem, Synthetic aperture}
+
+%%%% The following three commands must be input only when a covering letter 
+%%%% is required.
+
+\mladdress{Room 722, Engineering 14th Bldg., 7-3-1 Hongo, Bunkyo-ku, Tokyo, 113-8656 Japan} %% Japanese is available.
+
+\class{10} %%% A number from 1 to 7 should be typed for the appropriate classification.
+         %%% 1 for Ultrasonic
+         %%% 2 for Underwater Acoustics
+         %%% 3 for Speech
+         %%% 4 for Hearing
+         %%% 5 for Speech and Hearing
+         %%% 6 for Musical Acoustics
+         %%% 7 for Electro-acoustics
+         %%% 8 for Architectural Acoustics
+         %%% 9 for Noise and Vibration
+         %%% 10 for Acoustic Imaging
+         %%% 11 for Education in Acoustics
+         %%% 12 for Acoustical Assists(Acoustic Barrier-Free)
+         %%% 13 for Thermoacoustic Technology
+         %%% 14 for Sound Design
+
+\recommend{2}  %%% If this paper is recommended as an Acoustical Letter by the Editorial Board, 
+               %%% input "1"; otherwise, input "2".  This command is valid for Acoustical Letter
+			   %%% only.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+\label{sec:introduction}
+
+% >>> introduction
+@anchor:t02
+% <<<
+
+\section{Method}
+\label{sec:method}
+
+\subsection{The pixel-based echo imaging method}
+% >>> method/p1
+@anchor:t03
+% <<<
+
+\subsection{Minimizing data-acquisition}
+% >>> method/p2
+@anchor:t04
+% <<<
+
+\subsection{The simulation experiment}
+% >>> method/p3
+@anchor:t05
+% <<<
+
+\section{Result}
+\label{sec:result}
+
+\subsection{Condition numbers of systems with different configurations}
+% >>> result/p1
+@anchor:t06
+% <<<
+
+\subsection{Phantom data reconstruction under different SNR}
+% >>> result/p2
+@anchor:t07
+% <<<
+
+\subsection{Comparison between pixel-based imaging method and synthetic aperture method}
+% >>> result/p3
+@anchor:t08
+% <<<
+
+\section{Discussion}
+\label{sec:discussion}
+
+\subsection{Advantages and features of the pixel-based imaging method}
+% >>> discussion/p1
+@anchor:t09
+% <<<
+
+\subsection{Challenges and future directions for the pixel-based imaging method}
+% >>> discussion/p2
+@anchor:t10
+% <<<
+
+\section{Conclusion}
+\label{sec:conclusion}
+
+% >>> conclusion
+@anchor:t12
+% <<<
+
+%% If the number of items less than 10, "9" must be input
+%% Less than 100, input "99".
+\begin{thebibliography}{99} 
+
+% >>> reference
+@anchor:t13
+% <<<
+\end{thebibliography}
+
+% \covering %%% This command will produce a covering letter.
+
+\end{document}

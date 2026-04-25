@@ -1,0 +1,228 @@
+\ProvidesFile{prepr.clo}[2002/12/24 v1.0 AST onecolumn option]
+
+% Line spacing isn't double-spaced in 'paper' and 'techrep'. Why?
+\renewcommand{\baselinestretch}{2} % add. 2022.12.9
+% In 'letter' and 'shortnote', line spacing is quadruple-spaced.....
+
+\@twocolumnfalse
+\@twosidetrue
+\raggedbottom
+
+\setlength{\textwidth}{420\p@}
+\setlength{\textheight}{660\p@}
+\setlength\topmargin{\z@}
+\setlength\headheight{12\p@}
+\setlength\headsep   {22\p@}
+\setlength{\oddsidemargin}{5mm}
+\setlength{\evensidemargin}{5mm}
+\setlength{\parindent}{18\p@}
+
+\renewcommand\normalsize{%
+   \@setfontsize\normalsize\@xiipt{22}
+   \abovedisplayskip 7\p@
+   \abovedisplayshortskip 7\p@
+   \belowdisplayshortskip 7\p@
+   \belowdisplayskip \abovedisplayskip
+   \setlength\jot{7\p@}
+   \let\@listi\@listI}
+\normalsize
+\renewcommand\small{%
+   \@setfontsize\small\@xpt{12}%
+   \abovedisplayskip 6\p@
+   \abovedisplayshortskip \abovedisplayskip
+   \belowdisplayshortskip \abovedisplayskip
+   \def\@listi{\leftmargin\leftmargini
+               \topsep \z@
+               \parsep \z@
+               \itemsep \parsep}%
+   \belowdisplayskip \abovedisplayskip
+}
+\renewcommand\footnotesize{%
+   \@setfontsize\footnotesize\@ixpt{14}%
+   \abovedisplayskip 5\p@
+   \abovedisplayshortskip \abovedisplayskip
+   \belowdisplayshortskip \abovedisplayskip
+   \def\@listi{\leftmargin\leftmargini
+               \topsep \z@
+               \parsep \z@
+               \itemsep \parsep}%
+   \belowdisplayskip \abovedisplayskip
+}
+\renewcommand\scriptsize{\@setfontsize\scriptsize\@viiipt{12}}
+\renewcommand\tiny{\@setfontsize\tiny\@viipt{8}}
+\renewcommand\large{\@setfontsize\large\@xivpt{18}}
+\renewcommand\Large{\@setfontsize\Large\@xviipt{22}}
+\renewcommand\LARGE{\@setfontsize\LARGE\@xxpt{25}}
+\renewcommand\huge{\@setfontsize\huge\@xxvpt{30}}
+\renewcommand\Huge{\@setfontsize\Huge\@xxvpt{30}}
+\renewcommand\instsize{\@setfontsize\instsize\@xpt{12}}
+
+\def\@listi{\leftmargin\leftmargini
+            \parsep 2\p@ \@plus2\p@ \@minus\p@
+            \topsep 2\p@ \@plus2\p@ \@minus\p@
+            \itemsep \z@ \@plus2\p@ \@minus\p@}
+\let\@listI\@listi
+\@listi
+\def\@listii {\leftmargin\leftmarginii
+              \labelwidth\leftmarginii
+              \advance\labelwidth-\labelsep
+              \topsep  6\p@ \@plus2\p@ \@minus\p@
+              \parsep  6\p@ \@plus2\p@ \@minus\p@
+              \itemsep \z@ \@plus2\p@ \@minus\p@}
+\def\@listiii{\leftmargin\leftmarginiii
+              \labelwidth\leftmarginiii
+              \advance\labelwidth-\labelsep
+              \topsep    2\p@ \@plus2\p@ \@minus\p@
+              \parsep    2\p@ \@plus2\p@ \@minus\p@
+              \partopsep 2\p@ \@plus2\p@ \@minus\p@
+              \itemsep  \z@ \@plus2\p@ \@minus\p@}
+\def\@listiv {\leftmargin\leftmarginiv
+              \labelwidth\leftmarginiv
+              \advance\labelwidth-\labelsep}
+\def\@listv  {\leftmargin\leftmarginv
+              \labelwidth\leftmarginv
+              \advance\labelwidth-\labelsep}
+\def\@listvi {\leftmargin\leftmarginvi
+              \labelwidth\leftmarginvi
+              \advance\labelwidth-\labelsep}
+
+\def\maketitle{\par
+%%\def\@makefnmark{\hskip-1\p@{$^{\@thefnmark}$}}
+\if@twocolumn
+ \twocolumn[\@maketitle]
+\else
+\global\@topnum\z@ \@maketitle \fi
+\thispagestyle{headings}\@thanks
+\setcounter{footnote}{0}
+\let\maketitle\relax
+\let\@maketitle\relax
+}
+\def\@maketitle{%
+%%%% For letter %%%%
+\if@l
+\noindent\lettermark \\[12\p@]
+{\large\bfseries\boldmath\@title\par}
+\@ifundefined{@subtitle}{\def\@subtitle{}}{}
+\par
+\noindent{\bfseries\boldmath\@subtitle\par}
+\vskip.5\baselineskip
+\noindent
+{\@author\par}
+\vskip.5\baselineskip
+\noindent{\small\itshape\@inst\par}
+\vskip.5\baselineskip
+%
+\ifx\@accdate\empty{\relax}
+ \else \noindent{\small\itshape{(Received \@recdate, Accepted for publication \@accdate)}} \fi
+\gdef\@recdate{}
+\gdef\@accdate{}
+%
+\vskip.5\baselineskip
+\noindent
+ \@ifundefined{@abst}{}{\instsize\textbf{\abstname:}\quad\@abst\par}
+ \vskip.5\baselineskip
+ \noindent
+ \@ifundefined{@kword}{}{\small\textbf{\kwordname:}\quad\@kword\par}
+% \begin{flushright}\small\textbf{\kwordname:}\quad\@kword\end{flushright}
+% \begin{flushright}\small\textbf{\pacsname:}\quad\@pacs\end{flushright}
+\else
+%%%%%%%%%%%%%%%%%%%%%
+%%%% For shortnote %%%%
+\if@sn
+\noindent\snmark \\[6\p@]
+\noindent{\large\bfseries\boldmath\@title\par}
+\@ifundefined{@subtitle}{\def\@subtitle{}}{}
+\par
+\noindent{\bfseries\boldmath\@subtitle\par}
+\vskip.5\baselineskip
+\noindent{\@author\par}
+\vskip.5\baselineskip
+\noindent{\small\itshape\@inst\par}
+\vskip.5\baselineskip
+%
+\ifx\@accdate\empty{\relax}
+ \else \noindent{\small\itshape{(Received \@recdate, Accepted for publication \@accdate)}} \fi
+\gdef\@recdate{}
+\gdef\@accdate{}
+%
+\vskip.5\baselineskip
+\noindent
+ \@ifundefined{@kword}{}{\small\textbf{\kwordname:}\quad\@kword\par}
+% \begin{flushright}\small\textbf{\kwordname:}\quad\@kword\end{flushright}
+% \begin{flushright}\small\textbf{\pacsname:}\quad\@pacs\end{flushright}
+\else
+%%%%%%%%%%%%%%%%%%%%%
+\if@tr
+\noindent
+\textbf{TECHNICAL REPORT}
+\else
+\noindent
+\textbf{PAPER}
+\fi
+\\[12\p@]
+\noindent{\large\bfseries\boldmath\@title\par}
+\@ifundefined{@subtitle}{\def\@subtitle{}}{}
+\par
+\noindent{\bfseries\boldmath\@subtitle\par}
+\vskip.5\baselineskip
+\noindent{\@author\par}
+\vskip.5\baselineskip
+\noindent{\small\itshape\@inst\par}
+\@ifundefined{@recdate}{\def\@recdate{}}{}
+\@ifundefined{@accdate}{\def\@accdate{}}{}
+\vskip.5\baselineskip
+\ifx\@accdate\empty{\relax}
+ \else \noindent{\small\itshape{(Received \@recdate, Accepted for publication \@accdate)}} \fi
+\gdef\@recdate{}
+\gdef\@accdate{}
+%
+\vskip1\baselineskip
+  \noindent
+ \@ifundefined{@abst}{}{\instsize\textbf{\abstname:}\quad\@abst\par}
+ \vskip.5\baselineskip
+ \noindent
+ \@ifundefined{@kword}{}{\small\textbf{\kwordname:}\quad\@kword\par}
+ \vskip.5\baselineskip
+ \noindent
+ \@ifundefined{@pacs}{}{\small\textbf{\pacsname:}\quad\@pacs\par}
+\fi \fi
+
+%%% will never appear on the title page
+ \@ifundefined{@mailing address}{}{}
+ \par 
+ \@ifundefined{@class}{}{}
+ \par
+ \@ifundefined{@recommend}{\recommend{2}}{}
+ \par
+ \vskip1\baselineskip
+}
+
+%%%%heading%%%%%
+\mark{{}{}}
+
+\def\ps@acoust{%
+  \let\@mkboth\@gobbletwo%
+  \def\@evenfoot{\normalsize\itshape{\thepage}\hfill}
+  \def\@oddfoot{\hfill\normalsize\itshape{\thepage}}
+  \def\@evenhead{\normalsize\itshape{Acoust. Sci. \& Tech.}\hfill}
+  \let\@oddhead\@evenhead
+}
+
+\def\ps@headings{%
+  \let\@mkboth\@gobbletwo%
+  \def\@evenfoot{\normalsize{\hfill{\thepage/\pageref{lastpage}}\hfill}}
+  \let\@oddfoot\@evenfoot
+  \def\@evenhead{\hfill{\textit{Acoust. Sci. \& Tech.}}}
+  \def\@oddhead{{\header}\hfill}
+}
+
+%%%%% profile %%%%%
+\renewcommand\profile[2]{\par\vskip.5\baselineskip\noindent%
+     {\small\textbf{#1}\quad{#2}}
+}
+
+\endinput
+
+%%
+%% End of file `prepr.clo'.
+

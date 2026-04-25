@@ -1,0 +1,291 @@
++++ header
+@title: Towards minimizing data-acquisition for a pixel-based ultrasound computed tomography echo imaging method
+@brief: A manuscript on USCT research, to be submitted to AST, part of the requirement to fulfill a PhD degree.
+@date:
+- created on 2024-01-13
+- updated on 2025-02-14
++++
+
+# Method
+
+## The simulation experiment
+<!--
+@brief:
+- the simulation method
+	- conditions
+		- pass through echo be subtracted (discussion call back here)
+		- mention of position of elements being considered are on slots (in sec 2.2)
+		- mention the elements numbers being checked is only those power of 2 (in sec. 2.2)
+		- the scale down, increased attenuation
+	- parameters (use a table)
+	- the formula (content of stack 2023-01-08-a, explains how the simulation is implemented)
+		- call back part 1, the pixel-based method
+		- call back part 2, the size of measurement matrix
+		- the add of noise
+		- technical detail about requirement on sampling frequency
+		- the negative echogenicity
+		- what is being imaged
+	- phantom design
+- the simulation content (what to investigate)
+	- the measurement matrix metric (condition number, stack 2023-05-12-a), this will validate the *hypothesis*.
+	- the simulation experiment (stack 2023-08-11-a & stack 2023-12-10-a, show the value/effect of condition number, the consistency w/ measurement matrix metric)
+	- sub-ROI position dependent optimization (stack 2023-12-25-a content)
+	- comparison w/ SA (2023-12-30-a content)
+-->
+#method/simulation-experiment
+\label{sec:simulation-experiment}
+
+<!-- latex -->
+\begin{table}[tb]
+\begin{center}
+\caption{Simulation parameters}
+\label{tb:01}
+\begin{tabular}{@{}llp{0.5\linewidth}@{}}
+\toprule
+Symbol			& Value					& Remarks										\\
+\midrule
+$c_0$			& $1523.3$ m/s			& Sound speed ($36.8^\circ\text{C}$ water) 		\\
+$\alpha_0$		& $6.4$ dB/MHz/cm 		& Attenuation factor (\textasteriskcentered) 	\\
+$f_c$			& $1.8$ MHz				& TX wave central frequency 					\\
+$p_0$			& $1.0$ MPa				& TX wave peak amplitude 						\\
+$f_s$			& $9.0$ MHz				& Sampling frequency 							\\
+$\phi$			& $14.625$ mm			& USCT system diameter 								\\
+$N_t$			& $256$					& Samples per RX channel 						\\
+$N_e$			& $128$					& Number of element slots 						\\
+$d$				& 0.500 mm          	& Pixel size 									\\
+$N_p$			& 584					& Pixel number (\textdagger) 					\\
+\bottomrule
+\end{tabular}
+\end{center}
+(\textasteriskcentered) The attenuation is artificially scaled-up 16x to compensate for the down-scaling effect of the model. \\
+(\textdagger) Only the pixels inside the ring-shaped transducer, on a 32-by-32 grid are included.
+\end{table}
+
+<!----------->
+
+In this study, we conduct simulations to investigate the characteristics of the pixel-based echo imaging method and assess the practicality of our strategy for minimizing data acquisition.
+We also compare the performance of our method with that of the conventional synthetic aperture method.
+
+<!-- ### CONDITION -->
+To maintain computational efficiency, we use a 1/16 scaled-down model of the actual system depicted in [@fig:01], with detailed simulation parameters provided in [@tb:01].
+
+The simulation is performed in time domain within 2D space.
+We model the acoustic source as a time-varying pressure point located at the center of the transducer element surface, radiating acoustic energy uniformly in all directions, without applying any directivity.
+The source employs a 4-cycle Gaussian-modulated sinusoid wave with a peak amplitude of $p_0$.
+Adhering to the principle of energy conservation, the finite size of the transmission element---denoted as $L_{e}$, representing the element width in 2D simulation---is considered, establishing key relationships between power ($P$), intensity ($I$), and pressure ($p$), as outlined in [@eq:power-intensity-pressure-relation]:
+<!-- latex -->
+\begin{subequations}
+\label{eq:power-intensity-pressure-relation}
+\begin{equation}
+\label{eq:power-intensity-relation}
+I = \frac{P}{L_{e}}
+\end{equation}
+\begin{equation}
+\label{eq:intensity-pressure-relation}
+I \propto p^{2}
+\end{equation}
+\end{subequations}
+<!----------->
+
+For a scatterer at a distance $D_{TX}$ from the transmission element, the relationship between the transmission and the incident wave pressure---denoted as $p_{0}$ and $p_{i}$ correspondingly---is described by [@eq:transmission-incident-relation]:
+<!-- latex -->
+\begin{equation}
+\label{eq:transmission-incident-relation}
+p_{0}^{2} \cdot L_{e} = 2\pi \cdot D_{TX} \cdot p_{i}^{2}
+\end{equation}
+<!----------->
+Upon scattering, the incident wave pressure $p_{i}$ and the scattering wave pressure $p_{s}$ are related by the echogenicity $\chi$ in [@eq:incident-scattering-relation]:
+<!-- latex -->
+\begin{equation}
+\label{eq:incident-scattering-relation}
+p_{s}^2 = \vert\chi\vert \cdot p_{i}^{2}
+\end{equation}
+<!----------->
+Here, $\vert\chi\vert$ denotes the fraction of incident acoustic power being scattered, therefore $\vert\chi\vert \le 1$.
+Negative echogenicity implies a 180-degree phase shift in the scattering wave relative to the incident wave, because echogenicity is a result of the acoustic impedance difference among media---when the incident wave travels from high to low impedance media, phase inversion happens.
+Unit echogenicity ($\chi = 1$) is a hypothetical case, used in generating the $\mathbf{G}$ matrix.
+<!-- @note: consider the scatterer as a disk having different acoustic impedance from the surroundings. -->
+
+The scatterer acts as an acoustic source in the scattering process.
+Each scatterer is assumed to be contained within a pixel, assigned a ``cross-length'' (a 2D adaptation of cross-section) equal to the pixel size $d$, enabling the calculation of received wave pressure $p_{r}$ at an element located $D_{RX}$ away, as described in [@eq:scattering-reception-relation]:
+<!-- latex -->
+\begin{equation}
+\label{eq:scattering-reception-relation}
+p_{s}^{2} \cdot d = 2\pi \cdot D_{RX} \cdot p_{r}^{2}
+\end{equation}
+<!----------->
+
+Through back-substitution, we elucidate the relationship between the received wave pressure and the transmission wave pressure, incorporating scatterer location and echogenicity, as shown in [@eq:transmission-reception-relation]:
+<!-- latex -->
+\begin{equation}
+\begin{aligned}
+\label{eq:transmission-reception-relation}
+p_{r} & = p_s \sqrt{d/(2\pi \cdot D_{Rx})} \\
+      & =  \operatorname{sgn}(\chi) \cdot p_i \sqrt{\vert\chi\vert \cdot d/(2\pi \cdot D_{Rx})} \\
+      & =  \operatorname{sgn}(\chi) \cdot p_0 \sqrt{\vert\chi\vert \cdot (L_e \cdot d) / (D_{TX} \cdot D_{RX})} / (2\pi)
+\end{aligned}
+\end{equation}
+<!----------->
+
+Furthermore, we account for ultrasound wave attenuation using the power law model---as widely employed in many simulation studies [@cite:Verweij-Ultrasound-Simulation-2014]---as described in [@eq:power-law]:
+<!-- latex -->
+\begin{subequations}
+\label{eq:power-law}
+\begin{equation}
+\label{eq:power-law-TX}
+20 \cdot \log_{10} \big( \frac{p(\mathbf{s})}{p(\mathbf{0})} \big) = -\alpha_0 \cdot f_{c} \cdot D_{TX}
+\end{equation}
+\begin{equation}
+\label{eq:power-law-RX}
+20 \cdot \log_{10} \big( \frac{p(\mathbf{r})}{p(\mathbf{s})} \big) = -\alpha_0 \cdot f_{c} \cdot D_{RX}
+\end{equation}
+\end{subequations}
+where $p(\mathbf{0})$, $p(\mathbf{s})$, and $p(\mathbf{r})$ represent acoustic pressure at the source point, the scatterer point, and the receiving element point respectively as if there were no energy spreading.
+
+<!----------->
+Incorporating attenuation effects into our model refines the expression for the received wave pressure, as shown in [@eq:transmission-attenuation-reception-relation]:
+<!-- latex -->
+\begin{equation}
+\begin{aligned}
+\label{eq:transmission-attenuation-reception-relation}
+p_{r} = {} & \operatorname{sgn}(\chi) \cdot \sqrt{\vert\chi\vert \cdot (L_e \cdot d) / (D_{TX} \cdot D_{RX})}\\
+& \cdot 10^{-\alpha_0 \cdot f_{c} \cdot (D_{TX} + D_{RX}) / 20} \cdot p_{0} / (2\pi) 
+\end{aligned}
+\end{equation}
+<!----------->
+
+<!-- ### SIMULATION EXPERIMENTS  -->
+The simulation experiments start by investigating the condition numbers for systems with different element counts, uniformities, and positions, as categorized in [@fig:03].
+This exploration aims to understand how these factors affect the condition number, which is an indicator of measurement robustness to noise.
+We compute the condition number ($\kappa$) by its definition, utilizing singular value decomposition (SVD), as shown in [@eq:condition-number-definition]:
+<!-- latext -->
+\begin{equation}
+\begin{aligned}
+\label{eq:condition-number-definition}
+\kappa(\mathbf{G}) = \frac{\sigma_{\max}(\mathbf{G})}{\sigma_{\min}(\mathbf{G})}
+\end{aligned}
+\end{equation}
+<!---->
+where $\sigma_{\max}(\mathbf{G})$ and $\sigma_{\min}(\mathbf{G})$ are the largest and smallest singular values of $\mathbf{G}$ respectively.
+We only examine systems that have full column rank, as it is a prerequisite stated in Section 2.2.
+The configurations of those systems are listed in [@tb:system-confs].
+<!-- latext -->
+\begin{table}[tb]
+\begin{center}
+\caption{Element configurations used for simulation}
+\label{tb:system-confs}
+\begin{tabular}{@{}lll@{}}
+\toprule
+Number of Ele. & Uniformity of Ele. & Position of Ele. \\
+\midrule
+128	&	1	&	\{1, 2, \ldots 128\}	\\
+\cmidrule{1-3}
+64	&	1	&	\{1, 2, \ldots 64\}	\\
+	&		&	\ldots	\\
+	\cmidrule{2-3}
+	&	2	&	\{1, 3, \ldots 127\} \\
+	&		& \{2, 4, \ldots 128\} \\
+\cmidrule{1-3}
+32	&	1	&	\{1, 2, \ldots 32\}	\\
+	&	\ldots	&	\ldots	\\
+	&	4	&	\{4, 8, \ldots 128\}	\\
+\cmidrule{1-3}
+16	&	1	&	\{1, 2, \ldots 16\}	\\
+	&		&	\ldots	\\
+	&	&	\{17, 18, \ldots 32\}	\\
+	\cmidrule{3-3}
+	&	&	\{33, 34, \ldots 48\}	\\
+	&	&	\ldots	\\
+	& 	& \{49, 50, \ldots 64\}	\\
+	\cmidrule{2-3}
+	&	2	&	\{1, 3, \ldots 31\}	\\
+	&	&	\ldots	\\
+	\cmidrule{2-3}
+	&	3	&	\{1, 4, \ldots 46\}	\\
+	&	&	\ldots	\\
+	\cmidrule{2-3}
+	&	4	&	\{1, 5, \ldots 61\}	\\
+	&	&	\ldots	\\
+	\cmidrule{2-3}
+	&	5	&	\{1, 6, \ldots 76\}	\\
+	&	&	\ldots	\\
+	\cmidrule{2-3}
+	&	6	&	\{1, 7, \ldots 91\}	\\
+	&	&	\ldots	\\
+	\cmidrule{2-3}
+	&	7	&	\{1, 8, \ldots 106\}	\\
+	&	&	\ldots	\\
+	\cmidrule{2-3}
+	&	8	&	\{1, 9, \ldots 121\}	\\
+	&	&	\ldots	\\
+	&	&	\{8, 16, \ldots 128\}	\\
+\cmidrule{1-3}
+8	&	1	&	\{1, 2, \ldots 8\}	\\
+	&	\ldots	&	\ldots	\\
+	&	16	&	\{16, 32, \ldots 128\}	\\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{table}
+<!---->
+
+Next, we verify the practicality of the condition number as a measurement performance indicator by conducting simulations on various ``scoring'' phantoms, using systems with different condition numbers, under varying noise levels.
+These phantoms feature distinctive patterns, facilitating visual assessment and pixel-to-pixel error analysis.
+To incorporate random thermal noise effect, we introduce a normally distributed noise component into our model, resulting in [@eq:linear-model-w-noise]:
+<!-- latext -->
+\begin{equation}
+\label{eq:linear-model-w-noise}
+\mathbf{G x + n = y}
+\end{equation}
+<!---->
+where $\mathbf{n}$ represents the noise, and $\mathbf{y}$ denotes the acquired noisy data.
+
+Finally, we compare the performance of the proposed method against the synthetic aperture method in terms of spatial resolution and contrast.
+For a given RF dataset with a specific SNR, and for each system with a specific configuration, we perform reconstructions using both the pixel-based method and the synthetic aperture method.
+
+For the synthetic aperture method, we perform beamforming at each pixel and summing across signals from all the TX/RX pairs coherently, as expressed in [@eq:synthetic-aperture] [@cite:Treeby-kWave-2010]:
+<!-- latext -->
+\begin{subequations}
+\label{eq:synthetic-aperture}
+\begin{equation}
+\label{eq:synthetic-aperture-beamforming}
+A(i,j) = \Big\vert \sum_{m=1}^{N_{TX}} \sum_{n=1}^{N_{RX}} \mathcal{H} \big( \mathrm{TGC}(y_{m,n}) \big)(\tau) \Big\vert
+\end{equation}
+\begin{equation}
+\label{eq:two-way-traval-time}
+\tau = \frac{D_{TX} + D_{RX}}{c_0}
+\end{equation}
+\begin{equation}
+\label{eq:log-compression}
+I = \frac{\log_{10}\left(1 + a \cdot A / \max(A)\right)}{\log_{10}(1 + a)}
+\end{equation}
+\end{subequations}
+<!---->
+where, $\mathcal{H}$ denotes the Hilbert Transform;
+$y_{m,n}$ denotes the RF signal of the $n$-th RX channel from the $m$-th TX event;
+$\mathrm{TGC}$ denotes the time-gain-compensation.
+$A(i, j)$ denotes the uncompressed signal strength at the $i$-th row $j$-th column pixel;
+$I$ denotes the logarithm-compressed image---note it is already normalized in range $[0, 1]$---and it is then mapped to 8-bit grayscale image for display.
+The parameter $a$ controls the compression curve and implicitly determines the dynamic range.
+In this study, $a$ is set to $-0.7$, corresponding to an effective dynamic range of approximately 43.5 dB.
+
+For the proposed method, we first solve the inverse problem for $\mathbf{x}$, and restore the echogenicity vector $\chi$, then assign the relative strength to each corresponding pixel, and reshape the result into 2D format, as expressed in [@eq:pixel-based-method]:
+<!-- latext -->
+\begin{subequations}
+\label{eq:pixel-based-method}
+\begin{equation}
+\label{eq:pixel-based-inverse}
+\mathbf{x} = \arg \min_{\mathbf{x}} \lVert \mathbf{y-Gx} \rVert_2^2
+\end{equation}
+\begin{equation}
+\label{eq:pixel-based-post}
+\chi = \operatorname{sgn}(\mathbf{x}) \cdot \mathbf{x}^2
+\end{equation}
+\begin{equation}
+\label{eq:pixel-based-rescale}
+I = \operatorname{Reshape}\Big( \frac{\vert \chi \vert}{\max(\vert \chi \vert)} \Big)
+\end{equation}
+\end{subequations}
+<!---->
+where $I$ denotes the reconstructed image in range $[0, 1]$---unlike synthetic aperture, no logarithm compression is applied---and it is linearly mapped to 8-bit image for display.
+Note that [@eq:pixel-based-post] is necessary since $\chi$ is under the square root in the forward process model of [@eq:transmission-attenuation-reception-relation].

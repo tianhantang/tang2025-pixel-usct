@@ -1,0 +1,27 @@
++++ header
+@title: Towards minimizing data-acquisition for a pixel-based ultrasound computed tomography echo imaging method
+@brief: A manuscript on USCT research, to be submitted to AST, part of the requirement to fulfill a PhD degree.
+@date:
+- created on 2024-01-21
+- updated on 2025-02-15
++++
+
+# Conclusion
+<!--
+@brief
+1. highlight the achievements of this study
+    - the method
+    - the optimization
+2. pitch the potential value to the application
+3. outlook for further work
+-->
+#conclusion
+
+In this research, we propose a minimal data-acquisition strategy for USCT echo imaging by leveraging the pixel-based imaging method.
+Simulation studies demonstrate that the condition number of the generated measurement matrix serves as an appropriate metric for the system design quality.
+The image reconstruction results indicate that a uniform elements configuration is optimal for imaging the ROI inside the ring-shaped transducer of USCT.
+
+Compared with the conventional synthetic aperture method, the proposed method exhibits an 8-fold reduction in the number of elements and a 64-fold decrease in the raw data required for the image reconstruction, while achieving comparable spatial resolution and enhanced contrast.
+This advancement could boost breast cancer screening throughput by providing better image quality and higher temporal resolution, as well as lower system costs by reducing the number of transducer elements.
+
+Future research will focus on evaluating the proposed method with experiment data.

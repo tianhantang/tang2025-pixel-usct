@@ -1,0 +1,23 @@
++++ header
+@title: Towards minimizing data-acquisition for a pixel-based ultrasound computed tomography echo imaging method
+@brief: A manuscript on USCT research, to be submitted to AST, part of the requirement to fulfill a PhD degree.
+@date:
+- created on 2023-10-01
+- updated on 2025-02-14
++++
+
+# Abstract
+<!-- @note: It is required that the abstract should be limited within 200 words (this ver. has 197 words). -->
+#abstract
+
+Ultrasound Computed Tomography is increasingly valued for breast cancer diagnosis.
+However, traditional echo imaging method, particularly the synthetic aperture method, though high in resolution, requires extensive data acquisition from numerous transducer element combinations.
+This leads to prolonged data collection, substantial storage and transfer burdens, and ultimately reduced throughput, limiting ultrasound computed tomography's practicality.
+<!-- // -->
+This study introduces a minimal data-acquisition strategy for echo imaging, leveraging a pixel-based imaging method.
+Our method aims to find an optimal transducer elements configuration that meets two criteria:
+minimizing the number of elements and ensuring the associated measurement matrix has a sufficiently small condition number to remain robust against random noise.
+By using this approach, we can significantly reduce the amount of data required for image reconstruction without compromising image quality compared to the synthetic aperture method.
+<!-- // -->
+Through simulation studies, we demonstrate that our method requires only 1/8th the number of elements and 1/64th the amount of data used by the synthetic aperture method while reconstructing images with comparable resolution and enhanced contrast.
+This advancement is valuable in boosting screening throughput, lowering system costs, and potentially improving diagnostic accuracy, marking a significant step forward in ultrasound computed tomography technology for breast cancer detection.

@@ -1,0 +1,67 @@
++++ header
+@title: Towards minimizing data-acquisition for a pixel-based ultrasound computed tomography echo imaging method
+@brief: A manuscript on USCT research, to be submitted to AST, part of the requirement to fulfill a PhD degree.
+@date: 
+- created on 2023-10-01
+- updated on 2025-02-14
++++
+
+# Introduction
+<!--
+@brief:
+1. about breast cancer
+   - Japan's issue
+   - Global issue
+2. about USCT imaging method
+   - compared w/ conventional ultrasound diagnosis
+   - echo mode and transmission mode
+   - major imaging methods
+   - synthetic aperture
+   - issues in USCT practice
+3. proposed method brief
+4. structure of the paper
+-->
+#introduction
+
+<!-- Breast cancer status in Japan and in the global -->
+Breast cancer is the most prevalent cancer among women, represents a significant health challenge not only in Japan but also worldwide [@cite:JP-Caner-data].
+While developed countries have seen relatively high survival rates due to advanced healthcare systems, the situation remains challenging in many parts of the world [@cite:Bray-Global-Cancer-2018].
+This disparity is largely attributed to the stage at diagnosis, with late detection often leading to poorer outcomes [@cite:Sankaranarayanan-Cancer-Survival-2010].
+Consequently, the emphasis on early diagnosis is paramount, highlighting the need for effective and efficient screening methods.
+
+<!-- about USCT imaging method -->
+Ultrasound Computed Tomography (USCT) is a promising technology for breast cancer diagnosis [@cite:Duric-SoftVue-2013].
+In a USCT system, ultrasound transducer elements are typically arranged in a ring-shape, facilitating both back-scattered (echo) and transmission (passed-through) waves to generate images.
+The echo mode, akin to conventional ultrasound B-mode imaging, provides an echogenicity map, while the transmission mode offers insights into tissue attenuation and sound speed.
+
+<!-- define the range -->
+This research focuses on imaging in echo mode.
+Because the echo mode of USCT builds on and enhances conventional hand-held ultrasound techniques, the familiarity and accumulated knowledge base in conventional ultrasound practice should allow for a smoother transition and integration of USCT into existing diagnostic frameworks.
+
+<!-- state the issue -->
+Synthetic aperture is a well-established echo imaging method.
+It is known for its high spatial resolution, achieved by synthesizing a large virtual aperture from multiple small-aperture transmissions [@cite:Jensen-Synthetic-Aperture-2006].
+This process, however, requires numerous transmissions, leading to lengthy data acquisition times and substantial data volumes.
+For example, a commercial USCT system (as shown in [@fig:01]) featuring 2048 elements arranged on a diameter 234 mm circle usually requires hundreds of transmissions using apertures moving across the enclosed region of interest, collecting several gigabytes data to build a tomographic image.
+This extensive data acquisition requirement limits the throughput of diagnosis and poses challenges for large-scale screening.
+
+<!-- latex -->
+\begin{figure}[tb]
+\label{fig:01}
+\begin{center}
+\includegraphics[width=6.5cm]{figure-01.eps}
+\caption{A commercial ultrasound computed tomography system. (Courtesy of Lily MedTech Inc.)}
+\end{center}
+\end{figure}
+<!----------->
+
+<!-- state the objective and call back pixel-based method -->
+In this study, we investigate minimizing the data required for image reconstruction for a given region of interest and pixel resolution, based on a pixel-based USCT echo imaging method we have proposed.
+
+<!-- state the structure of the paper -->
+The remaining part of this paper is organized as follows.
+First, we give an in-depth explanation on the pixel-based imaging method in Section 2.1;
+Then, we depict the procedures towards a minimal data-acquisition scheme for echo imaging in Section 2.2;
+Next, we describe details of the simulation experiments that verify our proposal in Section 2.3;
+After that, we present the simulation experiment results in [@sec:result] and discuss them in [@sec:discussion];
+Finally, we conclude our findings in [@sec:conclusion].
