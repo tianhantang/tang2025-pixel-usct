@@ -1,0 +1,4 @@
+[submodule "mmd2latex"]
+	path = mmd2latex
+	url = https://github.com/tianhantang/mmd2latex.git
+	branch = develop
