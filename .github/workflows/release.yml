@@ -1,0 +1,37 @@
+name: Release with submodules
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  bundle:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout (recursive)
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Install git-archive-all
+        run: pipx install git-archive-all
+
+      - name: Create bundled archives
+        run: |
+          NAME="${GITHUB_REPOSITORY##*/}-${GITHUB_REF_NAME}"
+          git-archive-all --prefix "${NAME}/" "${NAME}.tar.gz"
+          git-archive-all --prefix "${NAME}/" "${NAME}.zip"
+
+      - name: Create release and upload assets
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "${GITHUB_REF_NAME}" \
+            --title "${GITHUB_REF_NAME}" \
+            --generate-notes \
+            ./*.tar.gz ./*.zip
