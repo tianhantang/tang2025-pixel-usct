@@ -30,6 +30,27 @@ In this study, we investigate minimizing the data required for image reconstruct
 
 [...]
 
+## 2. Method
+
+### 2.1 The pixel-based USCT echo imaging method
+
+The pixel-based USCT echo imaging method, proposed in our prior study [6](https://doi.org/10.24492/use.38.0_2E1-4), and further elaborated upon in [7](https://doi.org/10.1109/ULTSYM.2019.8925696), diverges from the traditional synthetic aperture method (which relies on back-projection techniques) by exploring a unique "pixel-dictionary" approach for image reconstruction.
+It aims for high-quality echo image creation while reducing the ultrasound data acquisition.
+
+[...]
+
+Considering an object consisting of multiple scatterers, the linear acoustics principle dictates that the received signal is the linear superposition of signals from each individual scatterer, encapsulated by Eq. (1):
+$$
+\mathbf{G x = y} \tag{1}
+$$
+where $\mathbf{x}$ represents a vector describing the scattering ability (derived from echogenicity) at each pixel within the ROI, and its physical meaning will be clarified in Section 2.3;
+$\mathbf{y}$ represents the received RF signal.
+
+Solving the inverse problem for $\mathbf{x}$ in Eq. (1), followed by appropriate post-processing on the result creates the echo image.
+This image effectively represents the echogenicity strength distribution of the ROI.
+
+Fig. 2 provides a visual guide to understand the pixel-based USCT echo imaging method. [...]
+
 ## Addendum (not part of publication)
 
 ### Build the manuscript into PDF
