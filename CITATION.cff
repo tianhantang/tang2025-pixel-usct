@@ -1,0 +1,37 @@
+# CITATION file, following the [Citation File Format](https://citation-file-format.github.io/) specification
+
+cff-version: 1.2.0
+
+title: "tang2025-pixel-usct"
+message: >-
+  Please use metadata from "preferred-citation" to cite the paper.
+type: software
+authors:
+  - family-names: Tang
+    given-names: Tianhan
+repository-code: "https://github.com/tianhantang/tang2025-pixel-usct"
+
+preferred-citation:
+  type: article
+  authors:
+    - family-names: Tang
+      given-names: Tianhan
+    - family-names: Sakuma
+      given-names: Ichiro
+    - family-names: Azuma
+      given-names: Takashi
+    - family-names: Umemura
+      given-names: Shin-Ichiro
+    - family-names: Otsubo
+      given-names: Atsushi
+    - family-names: Iwahashi
+      given-names: Toshihide
+    - family-names: Nakamura
+      given-names: Hirofumi
+  title: "Towards minimizing data-acquisition for a pixel-based ultrasound computed tomography echo imaging method"
+  journal: "Acoustical Science and Technology"
+  year: 2025
+  volume: 46
+  issue: 4
+  start: 262
+  end: 273
