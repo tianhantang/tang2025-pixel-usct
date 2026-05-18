@@ -2,7 +2,7 @@
 @file: README.txt
 @brief: Journal paper on USCT imaging, published at Acoustical Science and Technology, Vol. 46, No. 4 (2025)
 @see: https://www.jstage.jst.go.jp/article/ast/46/4/46_e24.88/_article/-char/en
-@date: [created: 2026-04-25, updated: 2026-05-17]
+@date: [created: 2026-04-25, updated: 2026-05-18]
 @author: Tianhan Tang (tianhantang.pd@gmail.com)
 ```
 
@@ -24,6 +24,7 @@ This advancement is valuable in boosting screening throughput, lowering system c
 
 ## 1. Introduction
 
+<!-- Add figure -->
 [...]
 
 In this study, we investigate minimizing the data required for image reconstruction for a given region of interest and pixel resolution, based on a pixel-based USCT echo imaging method we have proposed.
@@ -50,6 +51,37 @@ Solving the inverse problem for $\mathbf{x}$ in Eq. (1), followed by appropriate
 This image effectively represents the echogenicity strength distribution of the ROI.
 
 Fig. 2 provides a visual guide to understand the pixel-based USCT echo imaging method. [...]
+<!-- Add figure -->
+
+### 2.2 Minimizing data-acquisition for USCT echo imaging
+
+In light of Eq. (1), the concept of minimizing data acquisition for USCT echo imaging is straightforward. 
+The vector $\mathbf{x}$ symbolizes the one-dimensional unknown parameters relating to the echogenicity map.
+Given a specific ROI and the required spatial resolution, the number of pixels ($N_{p}$)---and thus the elements in $\mathbf{x}$---is predetermined.
+Minimizing data acquisition necessitates reducing the length of vector $\mathbf{y}$, which comprises the vertically stacked RF data from all TX/RX pairs.
+The length of $\mathbf{y}$ is the product of the number of samples per RX channel ($N_{t}$), the number of RX channels ($N_{RX}$), and the number of TX events ($N_{TX}$). [...]
+
+[...] Our strategy is to diminish the number of elements across the entire system, inherently reducing both the number of RX channels and TX events.
+
+A decrease in the length of $\mathbf{y}$ also implies a reduction in the number of rows in matrix $\mathbf{G}$, following the linear system relationship.
+Thus, the pursuit of data minimization aims to design an optimal system characterized by a $\mathbf{G}$ matrix that has as few as possible rows while maintains:
+- A full rank to ensure that Eq. (1) is solvable for $\mathbf{x}$;
+- A small condition number to guarantee the measurement being robust against noise [8](https://doi.org/10.1017/9781009089517).
+
+[...]
+
+### 2.3 The Simulation Experiment
+
+In this study, we conduct simulations to investigate the characteristics of the pixel-based echo imaging method and assess the practicality of our strategy for minimizing data acquisition.
+We also compare the performance of our method with that of the conventional synthetic aperture method.
+
+To maintain computational efficiency, we use a 1/16 scaled-down model of the actual system depicted in Fig. 1, with detailed simulation parameters provided in Table 1.
+
+<!-- Add table -->
+
+The simulation is performed in time domain within 2D space. [...]
+
+[...]
 
 ## Addendum (not part of publication)
 
