@@ -1,10 +1,10 @@
-+++ header
+``` header
 @title: Towards minimizing data-acquisition for a pixel-based ultrasound computed tomography echo imaging method
 @brief: A manuscript on USCT research, to be submitted to AST, part of the requirement to fulfill a PhD degree.
 @date: 
 - created on 2023-10-01
 - updated on 2025-02-14
-+++
+```
 
 # Introduction
 <!--
