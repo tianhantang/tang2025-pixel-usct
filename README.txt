@@ -41,7 +41,7 @@ This advancement is valuable in boosting screening throughput, lowering system c
 ## 1. INTRODUCTION
 
 <div align="center">
-  <img src="media/figure-01.png" width="60%">
+  <img src="media/figure-01.jpg" width="60%">
   <br>
   <em>Fig. 1: A commercial ultrasound computed tomography system (Courtesy of Lily MedTech Inc.).</em>
 </div>
@@ -74,8 +74,8 @@ This image effectively represents the echogenicity strength distribution of the 
 Fig. 2 provides a visual guide to understand the pixel-based USCT echo imaging method. [...]
 
 <div align="center">
-  <img src="media/figure-02-a.png" width="85%">
-  <img src="media/figure-02-b.png" width="85%">
+  <img src="media/figure-02-a.jpg" width="85%">
+  <img src="media/figure-02-b.jpg" width="85%">
   <br>
   <em>Fig. 2: A pixel-based USCT echo imaging method. (a) the forward process; (b) the inverse process.</em>
 </div>
@@ -154,7 +154,7 @@ The SNR of the RF data for reconstruction is 40 dB.
 Figure 7 compares the contrast of SA and the pixel-based method using a female breast-mimicking phantom, which models skin, fat, mammary tissue, and a tumor. [...]
 
 <div align="center">
-  <img src="media/figure-07.png" width="50%">
+  <img src="media/figure-07.jpg" width="50%">
   <br>
   <em>Fig. 7: Comparing the contrast ratio: the reconstructions, and the quantitative evaluation.</em>
 </div>
@@ -223,6 +223,6 @@ Since figures are all exported to EPS format, plain `latex` command is enough.
 Certain images and figures in this repository are reproduced with permission from third parties and are not covered by the BSD-3-Clause license.
 
 In particular:
-- `media/figure-01.png`: Courtesy of *Lily MedTech Inc.*, used with permission for academic publication only.
+- `media/figure-01.jpg`: Courtesy of *Lily MedTech Inc.*, used with permission for academic publication only.
 
 All rights to these materials remain with their respective copyright holders.
