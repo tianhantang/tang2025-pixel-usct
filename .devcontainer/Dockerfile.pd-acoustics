@@ -1,0 +1,111 @@
+# /////////////////////////////////////////////////////////////
+# @file: Dockerfile.pd-acoustics
+# @brief: This Dockerfile sets up a development environment for building academic manuscripts using LaTeX.
+# /////////////////////////////////////////////////////////////
+
+# === Use an official Ubuntu 24.04 (noble numbat) as a base image 
+# @see: https://hub.docker.com/_/ubuntu
+FROM ubuntu:24.04
+
+SHELL ["/bin/bash", "-euc"]
+
+# === Basic Scaffolding
+ENV TZ='Asia/Tokyo'
+ENV LANG='C.UTF-8'
+ENV LC_ALL='C.UTF-8'
+
+# Install basic packages
+# @note: The here doc (<<-EOT) strips leading tabs from the content, allowing for cleaner indentation in the Dockerfile.
+RUN <<-EOT
+	export DEBIAN_FRONTEND=noninteractive
+	apt update
+	apt install -y --no-install-recommends \
+		tzdata \
+		wget gnupg ca-certificates \
+		openssh-client git emacs-nox \
+		sudo
+	apt clean
+	rm -rf /var/lib/apt/lists/*
+EOT
+
+# Install PowerShell
+RUN <<-EOT
+	export DEBIAN_FRONTEND=noninteractive
+	wget -q https://packages.microsoft.com/config/ubuntu/24.04/packages-microsoft-prod.deb
+	dpkg -i packages-microsoft-prod.deb
+	apt update
+	apt install -y --no-install-recommends powershell
+	rm packages-microsoft-prod.deb
+	apt clean
+	rm -rf /var/lib/apt/lists/*
+EOT
+
+# Install LaTeX
+RUN <<-EOT
+	export DEBIAN_FRONTEND=noninteractive
+	apt update
+	apt install -y --no-install-recommends \
+		texlive-latex-base texlive-latex-extra \
+		texlive-fonts-recommended texlive-fonts-extra \
+		ghostscript
+EOT
+
+# === User Experience Enhancements
+COPY --chmod=0600 copy/config/ssh-conf /tmp/ssh-conf
+COPY --chmod=0644 copy/config/git-conf /tmp/git-conf
+
+# === Work env. setup
+
+# --- Create a non-root user
+# Create a non-root user with the specified UID and GID and grant sudo privileges
+# @note: Ubuntu image has a default non-root user named `ubuntu`, with user id 1000, group id 1000 and this dockerfile is designed to use that one.
+ARG PD_USER_NAME='ubuntu'
+ARG PD_USER_UID='1000'
+ARG PD_USER_GID=$PD_USER_UID
+ARG PD_USER_HOME="/home/${PD_USER_NAME}"
+ARG PD_WORKSPACE="${PD_USER_HOME}/wksp"
+RUN <<-EOT
+	echo "${PD_USER_NAME} ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/$PD_USER_NAME
+	chmod 0440 /etc/sudoers.d/$PD_USER_NAME
+EOT
+
+# --- Setup SSH
+RUN <<-EOT
+	[ -d "$PD_USER_HOME/.ssh" ] || mkdir $PD_USER_HOME/.ssh
+	chown $PD_USER_NAME:$PD_USER_NAME $PD_USER_HOME/.ssh
+	cp /tmp/ssh-conf $PD_USER_HOME/.ssh/config
+	chown $PD_USER_NAME:$PD_USER_NAME $PD_USER_HOME/.ssh/config
+EOT
+
+# --- Setup GPG
+# Create the necessary directory structure for gpg forwarding
+# @note: This directory is automatically created on Ubuntu Desktop, but it does not exist by default for a Ubuntu docker image.
+RUN <<-EOT
+	mkdir -p -m 0700 /run/user/$PD_USER_UID
+	chown $PD_USER_NAME:$PD_USER_NAME /run/user/$PD_USER_UID
+EOT
+
+# --- Setup Git
+RUN <<-EOT
+	cp /tmp/git-conf $PD_USER_HOME/.gitconfig
+	chown $PD_USER_NAME:$PD_USER_NAME $PD_USER_HOME/.gitconfig
+EOT
+
+# --- Clean up
+RUN rm -rf /tmp/*
+
+# --- Launchpad
+USER $PD_USER_NAME
+
+ENV USER=$PD_USER_NAME
+ENV HOME=$PD_USER_HOME
+ENV SHELL='/bin/bash'
+
+RUN mkdir -p $PD_WORKSPACE/git-repo
+# Set the working directory in the *container*
+WORKDIR $PD_WORKSPACE
+
+# Set the default command
+CMD echo "PLEASE LOGIN TO THE CONTAINER AND RUN THE SERVICE MANUALLY" && \
+	echo "@host: docker run -it <image-name> bash" && \
+	echo "@docker: <your-command-here>"
