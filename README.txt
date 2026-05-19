@@ -191,7 +191,7 @@ Future research will focus on evaluating the proposed method with experiment dat
 Requirement: PowerShell (pwsh), LaTeX (latex), dvipdf
 
 ``` powershell
-pwsh -nop ./build-article.ps1
+./build-article.ps1
 ```
 
 The generated PDF will be at `tex/u2025_ast.pdf`.
