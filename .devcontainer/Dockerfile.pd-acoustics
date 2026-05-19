@@ -22,7 +22,7 @@ RUN <<-EOT
 	apt install -y --no-install-recommends \
 		tzdata \
 		wget gnupg ca-certificates \
-		openssh-client git nano \
+		openssh-client git emacs-nox \
 		sudo
 	apt clean
 	rm -rf /var/lib/apt/lists/*

@@ -7,14 +7,14 @@ set -euo pipefail
 
 # === Function Definitions
 create_latex_dev_img() {
-	local image_name="pd-acoustics:latest"
+	local image_name="pd-acoustics"
 
 	# Check if local image already exists
-	if docker image inspect "$image_name" >/dev/null 2>&1; then
+	if docker image inspect "$image_name:latest" >/dev/null 2>&1; then
 		echo "[INFO] Docker image $image_name already exists, skipping build."
 	else
 		echo "[INFO] Building Docker image $image_name..."
-		docker build --network=host -f Dockerfile.python-dev -t "$image_name" .
+		docker build --network=host -f "Dockerfile.$image_name" -t "$image_name:latest" .
 	fi
 }
 

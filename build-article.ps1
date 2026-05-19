@@ -66,6 +66,7 @@ cd ./tex
 latex u2025_ast.tex
 latex u2025_ast.tex  # run a second time to resolve references
 dvipdf ./u2025_ast.dvi
-open u2025_ast.pdf
+
+echo "[INFO] PDF file created: u2025_ast.pdf"
 
 cd ..
