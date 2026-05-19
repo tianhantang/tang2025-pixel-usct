@@ -88,7 +88,23 @@ We also compare the performance of our method with that of the conventional synt
 
 To maintain computational efficiency, we use a 1/16 scaled-down model of the actual system depicted in Fig. 1, with detailed simulation parameters provided in Table 1.
 
-<!-- Add table -->
+*Table 1: Simulation parameters.*
+
+| Symbol | Value | Remarks |
+|--------|-------|---------|
+| $c_0$ | 1523.3 m/s | Sound speed (36.8°C water) |
+| $\alpha_0$ | 6.4 dB/MHz/cm | Attenuation factor (*) |
+| $f_c$ | 1.8 MHz | TX wave central frequency |
+| $p_0$ | 1.0 MPa | TX wave peak amplitude |
+| $f_s$ | 9.0 MHz | Sampling frequency |
+| $\phi$ | 14.625 mm | USCT system diameter |
+| $N_t$ | 256 | Samples per RX channel |
+| $N_e$ | 128 | Number of element slots |
+| $d$ | 0.500 mm | Pixel size |
+| $N_p$ | 584 | Pixel number (**) |
+
+(*) The attenuation is artificially scaled-up 16x to compensate for the down-scaling effect of the model.
+(**) Only the pixels inside the ring-shaped transducer, on a 32-by-32 grid are included.
 
 The simulation is performed in time domain within 2D space. [...]
 
@@ -122,7 +138,7 @@ The SNR of the RF data for reconstruction is 40 dB.
 Figure 7 compares the contrast of SA and the pixel-based method using a female breast-mimicking phantom, which models skin, fat, mammary tissue, and a tumor. [...]
 
 <div align="center">
-  <img src="media/figure-07.png" width="60%">
+  <img src="media/figure-07.png" width="50%">
   <br>
   <em>Fig. 7: Comparing the contrast ratio: the reconstructions, and the quantitative evaluation.</em>
 </div>
