@@ -24,7 +24,9 @@ This advancement is valuable in boosting screening throughput, lowering system c
 
 ## 1. INTRODUCTION
 
-<!-- Add figure -->
+![fig:01](media/figure-01.png)
+*Fig. 1: A commercial ultrasound computed tomography system (Courtesy of Lily MedTech Inc.).*
+
 [...]
 
 In this study, we investigate minimizing the data required for image reconstruction for a given region of interest and pixel resolution, based on a pixel-based USCT echo imaging method we have proposed.
@@ -41,7 +43,7 @@ It aims for high-quality echo image creation while reducing the ultrasound data 
 [...]
 
 Considering an object consisting of multiple scatterers, the linear acoustics principle dictates that the received signal is the linear superposition of signals from each individual scatterer, encapsulated by Eq. (1):
-```math
+``` math
 \mathbf{G x = y} \tag{1}
 ```
 where $\mathbf{x}$ represents a vector describing the scattering ability (derived from echogenicity) at each pixel within the ROI, and its physical meaning will be clarified in Section 2.3;
@@ -51,7 +53,10 @@ Solving the inverse problem for $\mathbf{x}$ in Eq. (1), followed by appropriate
 This image effectively represents the echogenicity strength distribution of the ROI.
 
 Fig. 2 provides a visual guide to understand the pixel-based USCT echo imaging method. [...]
-<!-- Add figure -->
+
+![fig:02-a](media/figure-02-a.png)
+![fig:02-b](media/figure-02-b.png)
+*Fig. 2: A pixel-based USCT echo imaging method. (a) the forward process; (b) the inverse process.*
 
 ### 2.2 Minimizing data-acquisition for USCT echo imaging
 
@@ -109,7 +114,9 @@ The SNR of the RF data for reconstruction is 40 dB.
 [...]
 
 Figure 7 compares the contrast of SA and the pixel-based method using a female breast-mimicking phantom, which models skin, fat, mammary tissue, and a tumor. [...]
-<!-- Add figure -->
+
+![fig:07](media/figure-07.png)
+*Fig. 7: Comparing the contrast ratio: the reconstructions, and the quantitative evaluation.*
 
 [...] The result shows that the pixel-based imaging method using only 8 or 16 elements is good enough that outperforms SA using a full or 64-element system.
 
