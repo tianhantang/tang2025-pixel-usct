@@ -52,6 +52,7 @@ EOT
 
 # === User Experience Enhancements
 COPY --chmod=0600 copy/config/ssh-conf /tmp/ssh-conf
+COPY --chmod=0644 copy/config/git-conf /tmp/git-conf
 
 # === Work env. setup
 
@@ -84,6 +85,12 @@ RUN <<-EOT
 	chown $PD_USER_NAME:$PD_USER_NAME /run/user/$PD_USER_UID
 EOT
 
+# --- Setup Git
+RUN <<-EOT
+	cp /tmp/git-conf $PD_USER_HOME/.gitconfig
+	chown $PD_USER_NAME:$PD_USER_NAME $PD_USER_HOME/.gitconfig
+EOT
+
 # --- Clean up
 RUN rm -rf /tmp/*
 
@@ -94,6 +101,7 @@ ENV USER=$PD_USER_NAME
 ENV HOME=$PD_USER_HOME
 ENV SHELL='/bin/bash'
 
+RUN mkdir -p $PD_WORKSPACE/git-repo
 # Set the working directory in the *container*
 WORKDIR $PD_WORKSPACE
 

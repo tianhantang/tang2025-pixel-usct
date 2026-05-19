@@ -1,0 +1,8 @@
+[init]
+	defaultbranch = develop
+[core]
+	editor = emacs
+# === For local dev env ===
+# @note: Submodule uses *real* path, you can confirm with `git rev-parse --git-dir`
+[includeIf "gitdir:~/wksp/git-repo/"]
+	path = ~/wksp/config/TT_GITHUB_CONFIG
