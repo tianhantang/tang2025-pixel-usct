@@ -2,7 +2,7 @@
 @file: README.txt
 @brief: Journal paper on USCT imaging, published at Acoustical Science and Technology, Vol. 46, No. 4 (2025)
 @see: https://www.jstage.jst.go.jp/article/ast/46/4/46_e24.88/_article/-char/en
-@date: [created: 2026-04-25, updated: 2026-05-18]
+@date: [created: 2026-04-25, updated: 2026-05-19]
 @author: Tianhan Tang (tianhantang.pd@gmail.com)
 ```
 
@@ -22,7 +22,7 @@ By using this approach, we can significantly reduce the amount of data required 
 Through simulation studies, we demonstrate that our method requires only 1/8th the number of elements and 1/64th the amount of data used by the synthetic aperture method while reconstructing images with comparable resolution and enhanced contrast.
 This advancement is valuable in boosting screening throughput, lowering system costs, and potentially improving diagnostic accuracy, marking a significant step forward in ultrasound computed tomography technology for breast cancer detection.
 
-## 1. Introduction
+## 1. INTRODUCTION
 
 <!-- Add figure -->
 [...]
@@ -31,7 +31,7 @@ In this study, we investigate minimizing the data required for image reconstruct
 
 [...]
 
-## 2. Method
+## 2. METHOD
 
 ### 2.1 The pixel-based USCT echo imaging method
 
@@ -41,9 +41,9 @@ It aims for high-quality echo image creation while reducing the ultrasound data 
 [...]
 
 Considering an object consisting of multiple scatterers, the linear acoustics principle dictates that the received signal is the linear superposition of signals from each individual scatterer, encapsulated by Eq. (1):
-$$
+```math
 \mathbf{G x = y} \tag{1}
-$$
+```
 where $\mathbf{x}$ represents a vector describing the scattering ability (derived from echogenicity) at each pixel within the ROI, and its physical meaning will be clarified in Section 2.3;
 $\mathbf{y}$ represents the received RF signal.
 
@@ -83,6 +83,59 @@ The simulation is performed in time domain within 2D space. [...]
 
 [...]
 
+## 3. RESULT
+
+### 3.1 Condition numbers of systems with different configurations
+
+[...]
+
+We observe that for each category, systems with uniform configurations have the smallest mode in terms of condition number, implying that for imaging the entire ROI inside the ring-shaped transducer of USCT, uniform configuration is generally the best choice.
+For all systems with uniform configuration, more elements result in a smaller condition number.
+However, halving the number of elements sequentially from 128 to 64, 32, and 16 results in only a relatively small increase in condition number.
+This suggests significant redundancy in the full system.
+
+### 3.2 Phantom data reconstruction under different SNR
+
+[...]
+
+At lower SNR, the importance of using a uniform configuration, which has the smallest condition number, becomes more evident.
+In the extreme case of 10 dB SNR, the concentrated configuration, whose aperture only covers a small corner, completely fails to reveal the phantom, leaving most of the ROI unpainted and giving a high RMSE. [...]
+
+### 3.3 Comparison between pixel-based imaging method and synthetic aperture method
+
+Comparisons between the reconstructions from the pixel-based imaging method and the synthetic aperture method (SA) are shown in Figs. 6 and 7.
+The SNR of the RF data for reconstruction is 40 dB.
+
+[...]
+
+Figure 7 compares the contrast of SA and the pixel-based method using a female breast-mimicking phantom, which models skin, fat, mammary tissue, and a tumor. [...]
+<!-- Add figure -->
+
+[...] The result shows that the pixel-based imaging method using only 8 or 16 elements is good enough that outperforms SA using a full or 64-element system.
+
+## 4. DISCUSSION
+
+### 4.1 Advantages and features of the pixel-based imaging method
+
+[...]
+
+### 4.2 Challenges and future directions for the pixel-based imaging method
+
+[...]
+
+## 5. CONCLUSION
+
+In this research, we propose a minimal data-acquisition strategy for USCT echo imaging by leveraging the pixel-based imaging method.
+Simulation studies demonstrate that the condition number of the generated measurement matrix serves as an appropriate metric for the system design quality.
+The image reconstruction results indicate that a uniform elements configuration is optimal for imaging the ROI inside the ring-shaped transducer of USCT.
+
+Compared with the conventional synthetic aperture method, the proposed method exhibits an 8-fold reduction in the number of elements and a 64-fold decrease in the raw data required for the image reconstruction, while achieving comparable spatial resolution and enhanced contrast.
+This advancement could boost breast cancer screening throughput by providing better image quality and higher temporal resolution, as well as lower system costs by reducing the number of transducer elements.
+
+Future research will focus on evaluating the proposed method with experiment data.
+
+---
+
 ## Addendum (not part of publication)
 
 ### Build the manuscript into PDF
@@ -97,9 +150,9 @@ The generated PDF will be at `tex/u2025_ast.pdf`.
 
 ### Folder structure
 
+The essential files for building the article are organized as follows:
 ``` tree
 .
-|- README.txt                # <- this file
 |- build-article.ps1         # <- script to build the article
 |- t\d{2}_*.txt              # <- the manuscript in plain text, w/ custom markup
 |- mmd2latex/                # <- utility to convert the custom markup to LaTeX
