@@ -22,6 +22,22 @@ By using this approach, we can significantly reduce the amount of data required 
 Through simulation studies, we demonstrate that our method requires only 1/8th the number of elements and 1/64th the amount of data used by the synthetic aperture method while reconstructing images with comparable resolution and enhanced contrast.
 This advancement is valuable in boosting screening throughput, lowering system costs, and potentially improving diagnostic accuracy, marking a significant step forward in ultrasound computed tomography technology for breast cancer detection.
 
+## Table of Contents
+
+- [1. INTRODUCTION](#1-introduction)
+- [2. METHOD](#2-method)
+  - [2.1 The pixel-based USCT echo imaging method](#21-the-pixel-based-usct-echo-imaging-method)
+  - [2.2 Minimizing data-acquisition for USCT echo imaging](#22-minimizing-data-acquisition-for-usct-echo-imaging)
+  - [2.3 The Simulation Experiment](#23-the-simulation-experiment)
+- [3. RESULT](#3-result)
+  - [3.1 Condition numbers of systems with different configurations](#31-condition-numbers-of-systems-with-different-configurations)
+  - [3.2 Phantom data reconstruction under different SNR](#32-phantom-data-reconstruction-under-different-snr)
+  - [3.3 Comparison between pixel-based imaging method and synthetic aperture method](#33-comparison-between-pixel-based-imaging-method-and-synthetic-aperture-method)
+- [4. DISCUSSION](#4-discussion)
+  - [4.1 Advantages and features of the pixel-based imaging method](#41-advantages-and-features-of-the-pixel-based-imaging-method)
+  - [4.2 Challenges and future directions for the pixel-based imaging method](#42-challenges-and-future-directions-for-the-pixel-based-imaging-method)
+- [5. CONCLUSION](#5-conclusion)
+
 ## 1. INTRODUCTION
 
 <div align="center">
