@@ -217,3 +217,12 @@ The prefix must be unique since it is used as anchor in `u2025_ast_gen.tex`.
 Those files are loaded by the script `build-article.ps1` and converted to LaTeX source.
 
 Since figures are all exported to EPS format, plain `latex` command is enough.
+
+### Third-Party Materials
+
+Certain images and figures in this repository are reproduced with permission from third parties and are not covered by the BSD-3-Clause license.
+
+In particular:
+- `media/figure-01.png`: Courtesy of *Lily MedTech Inc.*, used with permission for academic publication only.
+
+All rights to these materials remain with their respective copyright holders.
