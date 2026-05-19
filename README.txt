@@ -24,8 +24,11 @@ This advancement is valuable in boosting screening throughput, lowering system c
 
 ## 1. INTRODUCTION
 
-![fig:01](media/figure-01.png)
-*Fig. 1: A commercial ultrasound computed tomography system (Courtesy of Lily MedTech Inc.).*
+<div align="center">
+  <img src="media/figure-01.png" width="60%">
+  <br>
+  <em>Fig. 1: A commercial ultrasound computed tomography system (Courtesy of Lily MedTech Inc.).</em>
+</div>
 
 [...]
 
@@ -54,9 +57,12 @@ This image effectively represents the echogenicity strength distribution of the 
 
 Fig. 2 provides a visual guide to understand the pixel-based USCT echo imaging method. [...]
 
-![fig:02-a](media/figure-02-a.png)
-![fig:02-b](media/figure-02-b.png)
-*Fig. 2: A pixel-based USCT echo imaging method. (a) the forward process; (b) the inverse process.*
+<div align="center">
+  <img src="media/figure-02-a.png" width="85%">
+  <img src="media/figure-02-b.png" width="85%">
+  <br>
+  <em>Fig. 2: A pixel-based USCT echo imaging method. (a) the forward process; (b) the inverse process.</em>
+</div>
 
 ### 2.2 Minimizing data-acquisition for USCT echo imaging
 
@@ -115,8 +121,11 @@ The SNR of the RF data for reconstruction is 40 dB.
 
 Figure 7 compares the contrast of SA and the pixel-based method using a female breast-mimicking phantom, which models skin, fat, mammary tissue, and a tumor. [...]
 
-![fig:07](media/figure-07.png)
-*Fig. 7: Comparing the contrast ratio: the reconstructions, and the quantitative evaluation.*
+<div align="center">
+  <img src="media/figure-07.png" width="60%">
+  <br>
+  <em>Fig. 7: Comparing the contrast ratio: the reconstructions, and the quantitative evaluation.</em>
+</div>
 
 [...] The result shows that the pixel-based imaging method using only 8 or 16 elements is good enough that outperforms SA using a full or 64-element system.
 
